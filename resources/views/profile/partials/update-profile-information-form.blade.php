@@ -18,15 +18,33 @@
         @method('patch')
 
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+            <x-input-label for="nombre" :value="__('Nombre')" />
+            <x-text-input id="nombre" name="nombre" type="text" class="mt-1 block w-full" :value="old('nombre', $user->nombre)" required autofocus autocomplete="nombre" />
+            <x-input-error class="mt-2" :messages="$errors->get('nombre')" />
         </div>
 
-        <div>
+        <!-- Existing code -->
+        <div class="mt-4">
+            <x-input-label for="apellido_p" :value="__('Apellido paterno')" />
+            <x-text-input id="apellido_p" class="block mt-1 w-full" type="text" name="apellido_p" value="{{ old('apellido_p', $user->apellido_p) }}" required autofocus autocomplete="apellido_p"/>
+        </div>
+        <!-- Existing code -->
+        <div class="mt-4">
+            <x-input-label for="apellido_m" :value="__('Apellido Materno')" />
+            <x-text-input id="apellido_m" class="block mt-1 w-full" type="text" name="apellido_m" value="{{ old('apellido_m', $user->apellido_m) }}" required autofocus autocomplete="apellido_m"/>
+        </div>
+
+        <div class="mt-4">
+            <x-input-label for="direccion" :value="__('Direccion')" />
+            <x-text-input id="direccion" class="block mt-1 w-full" type="text" name="direccion" value="{{ old('direccion'), $user->direccion }}" required autofocus autocomplete="direccion"/>
+        </div>
+        
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
+        
+        <div>
+
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
