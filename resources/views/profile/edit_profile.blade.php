@@ -29,6 +29,7 @@
                             </div>
                             <div class="col-sm-3 preview-image-video-container float-right mt-1">
                                 <img id='edit_preview_photo' class="img-thumbnail user-img user-profile-img profilePicture"
+                                width="300"
                                      src="{{asset('img/logo.png')}}"/>
                             </div>
                         </div>

@@ -676,7 +676,6 @@ mark,
     border: 1px solid #ddd;
     border-radius: 0.25rem;
     transition: all .2s ease-in-out;
-    max-width: 100%;
     height: auto;
 }
 
