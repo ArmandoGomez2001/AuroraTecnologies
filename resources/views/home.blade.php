@@ -43,7 +43,7 @@
                                     <div class="col-md-4 col-xl-4">
                                         <div class="card bg-c-green order-card">
                                             <div class="card-block">
-                                                <h5>Blogs</h5>                                               
+                                                <h5>Datos</h5>                                               
                                                 @php
                                                  use App\Models\Blog;
                                                 $cant_blogs = Blog::count();                                                
