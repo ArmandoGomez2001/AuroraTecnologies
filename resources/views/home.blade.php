@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 @section('content')
     <section class="section">
         <div class="section-header">
@@ -11,48 +13,56 @@
                     <div class="card">
                         <div class="card-body">                          
                                 <div class="row">
-                                    <div class="col-md-4 col-xl-4">
-                                    
-                                    <div class="card bg-c-green order-card">
-                                            <div class="card-block">
-                                            <h5>Usuarios</h5>                                               
-                                                @php
-                                                 use App\Models\User;
-                                                $cant_usuarios = User::count();                                                
-                                                @endphp
-                                                <h2 class="text-right"><i class="fa fa-users f-left"></i><span>{{$cant_usuarios}}</span></h2>
-                                                <p class="m-b-0 text-right"><a href="/usuarios" class="text-white">Ver más</a></p>
-                                            </div>                                            
-                                        </div>                                    
+                                    <div style="width: 80%; margin: auto;">
+                                        <canvas id="lineChart"></canvas>
+                                        
                                     </div>
+                                    <script>
+                                        // Función para obtener los datos del controlador
+                                        function obtenerDatos() {
+                                            fetch('/chart') // Ruta que apunta al método 'getData' del controlador
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                // Una vez obtenidos los datos, creamos la gráfica
+                                                const meses = data.map(item => item.horas);
+                                                const ventas = data.map(item => item.kw);
+
+                                                const maxValue = data.map(item => item.kw);
+                                
+                                                const ctx = document.getElementById('lineChart').getContext('2d');
+                                                const lineChart = new Chart(ctx, {
+                                                    type: 'line',
+                                                    data: {
+                                                        labels: meses,
+                                                        datasets: [{
+                                                            label: 'KW por hora',
+                                                            data: ventas,
+                                                            borderColor: 'rgba(75, 192, 192, 1)',
+                                                            borderWidth: 3,
+                                                            fill: false
+                                                        }]
+                                                    },
+                                                    options: {
+                                                        responsive: true,
+                                                        maintainAspectRatio: false,
+                                                        scales: {
+                                                            y: {
+                                                                suggestedMax: 800
+                                                            }
+                                                        }
+                                                    }
+                                                });
+                                            })
+                                            .catch(error => {
+                                                console.error('Error al obtener los datos:', error);
+                                            });
+                                        }
+                                
+                                        // Llamamos a la función para obtener los datos y crear la gráfica
+                                        obtenerDatos();
+                                    </script>
                                     
-                                    <div class="col-md-4 col-xl-4">
-                                        <div class="card bg-c-green order-card">
-                                            <div class="card-block">
-                                            <h5>Roles</h5>                                               
-                                                @php
-                                                use Spatie\Permission\Models\Role;
-                                                 $cant_roles = Role::count();                                                
-                                                @endphp
-                                                <h2 class="text-right"><i class="fa fa-user-lock f-left"></i><span>{{$cant_roles}}</span></h2>
-                                                <p class="m-b-0 text-right"><a href="/roles" class="text-white">Ver más</a></p>
-                                            </div>
-                                        </div>
-                                    </div>                                                                
                                     
-                                    <div class="col-md-4 col-xl-4">
-                                        <div class="card bg-c-green order-card">
-                                            <div class="card-block">
-                                                <h5>Datos</h5>                                               
-                                                @php
-                                                 use App\Models\Blog;
-                                                $cant_blogs = Blog::count();                                                
-                                                @endphp
-                                                <h2 class="text-right"><i class="fa fa-blog f-left"></i><span>{{$cant_blogs}}</span></h2>
-                                                <p class="m-b-0 text-right"><a href="/blogs" class="text-white">Ver más</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>                        
                         </div>
                     </div>
