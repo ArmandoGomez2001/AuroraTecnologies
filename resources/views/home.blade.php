@@ -13,6 +13,7 @@
                     <div class="card">
                         <div class="card-body">                          
                                 <div class="row">
+                                    
                                     <div style="width: 80%; margin: auto;">
                                         <canvas id="lineChart"></canvas>
                                         
@@ -47,7 +48,17 @@
                                                         maintainAspectRatio: false,
                                                         scales: {
                                                             y: {
-                                                                suggestedMax: 800
+                                                     
+                                                            }
+                                                        },
+                                                        plugins: {
+                                                            title: {
+                                                                display: true,
+                                                                text: 'KW por hora', // Set the title text
+                                                                font: {
+                                                                    size: 16, // Set the font size for the title
+                                                                    weight: 'bold' // Set the font weight for the title
+                                                                }
                                                             }
                                                         }
                                                     }

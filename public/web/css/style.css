@@ -3964,7 +3964,7 @@ body.layout-3 .main-footer {
 
 .main-footer {
     padding: 20px 30px 20px 280px;
-    margin-top: 40px;
+    margin-top: 500px;
     color: #98a6ad;
     border-top: 1px solid #e3eaef;
     display: inline-block;
@@ -4054,7 +4054,7 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
     }
 
     .main-footer {
-        padding-left: 30px;
+        
     }
 
     body.search-show {
