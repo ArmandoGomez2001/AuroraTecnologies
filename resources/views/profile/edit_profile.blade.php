@@ -52,33 +52,5 @@
     </div>
 </div>
 
-@section('scripts')
-<script>
-    // Script para manejar el botón "Guardar" del formulario
-    document.addEventListener('DOMContentLoaded', function () {
-        const saveButton = document.querySelector('.btn-primary');
-        if (saveButton) {
-            saveButton.addEventListener('click', (event) => {
-                event.preventDefault();
-                // Mostrar la confirmación de SweetAlert2 antes de enviar el formulario
-                Swal.fire({
-                    title: '¿Estás seguro?',
-                    text: '¿Deseas guardar los cambios?',
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Guardar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Si se confirma, enviar el formulario
-                        const form = event.target.closest('form');
-                        form.submit();
-                    }
-                });
-            });
-        }
-    });
-</script>
-@endsection
+
 

@@ -1,3 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- ... otros metadatos y estilos ... -->
+  <!-- SweetAlert2 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+</head>
+<body>
+  <!-- ... tu contenido ... -->
+
+  <!-- SweetAlert2 y jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+
+  <!-- ... otros scripts ... -->
+</body>
+</html>
+
 <div id="changePasswordModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -72,4 +90,52 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+      $("#changePasswordForm").on("submit", function(event) {
+        event.preventDefault(); // Prevent the default form submission
+  
+        // Show SweetAlert2
+        Swal.fire({
+          title: 'Guardando...',
+          html: 'Espere un momento mientras se procesa...',
+          icon: 'info',
+          showCancelButton: false,
+          showConfirmButton: false,
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+  
+            // Here you can add any additional actions you want to perform after the modal is shown.
+            // For example, you can trigger form submission after showing the modal.
+            // Uncomment the following line if you want to automatically submit the form after showing the modal.
+            // $("#changePasswordForm").submit();
+          },
+        });
+  
+        // Here, you should add the actual logic to process and save the new password.
+        // You can use AJAX to send the form data to the server.
+  
+        // For this example, I will simulate a 2-second delay to simulate a save operation.
+        setTimeout(function() {
+          Swal.fire({
+            title: 'Contraseña cambiada',
+            text: 'La contraseña se ha cambiado correctamente.',
+            icon: 'success',
+            timer: 1500, // Duration of the notification in milliseconds
+            timerProgressBar: true,
+          }).then(() => {
+            // Close the modal after the successful save
+            $("#changePasswordModal").modal("hide");
+          });
+        }, 2000); // Simulated save operation (2 seconds)
+      });
+    });
+  </script>
+  
+  
+  
+  
 <?php
+
+
