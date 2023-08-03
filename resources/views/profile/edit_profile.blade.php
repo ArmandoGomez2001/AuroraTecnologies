@@ -3,7 +3,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit Profile</h5>
+                <h5 class="modal-title">Editar Perfil</h5>
                 <button type="button" aria-label="Close" class="close outline-none" data-dismiss="modal">×</button>
             </div>
             <form method="POST" id="editProfileForm" enctype="multipart/form-data">
@@ -14,12 +14,12 @@
                     {{csrf_field()}}
                     <div class="row">
                         <div class="form-group col-sm-6">
-                            <label>Name:</label><span class="required">*</span>
+                            <label>Nombre:</label><span class="required">*</span>
                             <input type="text" name="name" id="pfName" class="form-control" required autofocus tabindex="1">
                         </div>
                         <div class="form-group col-sm-6 d-flex">
                             <div class="col-sm-4 col-md-6 pl-0 form-group">
-                                <label>Profile Image:</label>
+                                <label>Foto de perfil:</label>
                                 <br>
                                 <label
                                         class="image__file-upload btn btn-primary text-white"
@@ -36,14 +36,14 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-6">
-                            <label>Email:</label><span class="required">*</span>
+                            <label>Correo electronico:</label><span class="required">*</span>
                             <input type="text" name="email" id="pfEmail" class="form-control" required tabindex="3">
                         </div>
                     </div>
                     <div class="text-right">
-                        <button type="submit" class="btn btn-primary" id="btnPrEditSave" data-loading-text="<span class='spinner-border spinner-border-sm'></span> Processing..." tabindex="5">Save</button>
+                        <button type="submit" class="btn btn-primary" id="btnPrEditSave" data-loading-text="<span class='spinner-border spinner-border-sm'></span> Processing..." tabindex="5">Guardar</button>
                         <button type="button" class="btn btn-light ml-1 edit-cancel-margin margin-left-5"
-                                data-dismiss="modal">Cancel
+                                data-dismiss="modal">Cancelar
                         </button>
                     </div>
                 </div>
@@ -51,4 +51,34 @@
         </div>
     </div>
 </div>
+
+@section('scripts')
+<script>
+    // Script para manejar el botón "Guardar" del formulario
+    document.addEventListener('DOMContentLoaded', function () {
+        const saveButton = document.querySelector('.btn-primary');
+        if (saveButton) {
+            saveButton.addEventListener('click', (event) => {
+                event.preventDefault();
+                // Mostrar la confirmación de SweetAlert2 antes de enviar el formulario
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: '¿Deseas guardar los cambios?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Guardar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Si se confirma, enviar el formulario
+                        const form = event.target.closest('form');
+                        form.submit();
+                    }
+                });
+            });
+        }
+    });
+</script>
+@endsection
 
