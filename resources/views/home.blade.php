@@ -13,7 +13,7 @@
                     <div class="card">
                         <div class="card-body">                          
                                 <div class="row">
-                                    
+                                <h1 style="text-align: center; width: -webkit-fill-available; font-size: 30px">Medicion de KW</h1>
                                     <div style="width: 80%; margin: auto;">
                                         <canvas id="lineChart"></canvas>
                                         
@@ -52,14 +52,7 @@
                                                             }
                                                         },
                                                         plugins: {
-                                                            title: {
-                                                                display: true,
-                                                                text: 'KW por hora', // Set the title text
-                                                                font: {
-                                                                    size: 16, // Set the font size for the title
-                                                                    weight: 'bold' // Set the font weight for the title
-                                                                }
-                                                            }
+                                                            
                                                         }
                                                     }
                                                 });
