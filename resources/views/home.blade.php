@@ -13,10 +13,18 @@
                     <div class="card">
                         <div class="card-body">                          
                                 <div class="row">
-                                    
+                                    <h1 style="text-align: center; width: -webkit-fill-available; font-size: 30px">Medicion de KW</h1>
                                     <div style="width: 80%; margin: auto;">
+                                     
                                         <canvas id="lineChart"></canvas>
-                                        
+
+                                      
+                                    </div>
+                                    <h1 style="text-align: center; width: -webkit-fill-available; font-size: 30px">Medicion de KW</h1>
+                                    <div style="width: 80%; margin: auto;">
+                                        <canvas id="lineChart2"></canvas>
+
+                                      
                                     </div>
                                     <script>
                                         // Función para obtener los datos del controlador
@@ -52,17 +60,39 @@
                                                             }
                                                         },
                                                         plugins: {
+                                                         
+                                                        }
+                                                    }
+                                                });
+                                                const ctx2 = document.getElementById('lineChart2').getContext('2d');
+                                                const lineChart2 = new Chart(ctx2, {
+                                                    type: 'line',
+                                                    data: {
+                                                        labels: meses,
+                                                        datasets: [{
+                                                            label: 'KW por hora',
+                                                            data: ventas,
+                                                            borderColor: 'rgba(75, 192, 192, 1)',
+                                                            borderWidth: 3,
+                                                            fill: false
+                                                        }]
+                                                    },
+                                                    options: {
+                                                        responsive: true,
+                                                        maintainAspectRatio: false,
+                                                        scales: {
+                                                            y: {
+                                                     
+                                                            }
+                                                        },
+                                                        plugins: {
                                                             title: {
-                                                                display: true,
-                                                                text: 'KW por hora', // Set the title text
-                                                                font: {
-                                                                    size: 16, // Set the font size for the title
-                                                                    weight: 'bold' // Set the font weight for the title
-                                                                }
+                                                    
                                                             }
                                                         }
                                                     }
                                                 });
+                                                
                                             })
                                             .catch(error => {
                                                 console.error('Error al obtener los datos:', error);
