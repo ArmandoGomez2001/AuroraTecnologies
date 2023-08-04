@@ -11,8 +11,7 @@
                   <div class="card">
                       <div class="card-body">                           
                           <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>    
-                          <a class="btn btn-warning" href="{{ route('backup') }}">Generar Backup</a>        
-                          <a href="{{ route('backup') }}" class="btn btn-primary">Realizar Backup</a>
+                          <a class="btn btn-warning" href="{{ route('backup') }}">Generar Backup</a>    
 
                          
                             <table class="table table-striped mt-2">

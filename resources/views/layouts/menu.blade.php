@@ -11,4 +11,7 @@
     <a class="nav-link" href="/blogs">
         <i class=" fas fa-blog"></i><span>Blogs</span>
     </a>
+    <a class="nav-link" href="/sensors">
+        <i class=" fas fa-blog"></i><span>sensors</span>
+    </a>
 </li>
