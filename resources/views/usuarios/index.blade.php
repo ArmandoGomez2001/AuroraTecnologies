@@ -10,7 +10,10 @@
               <div class="col-lg-12">
                   <div class="card">
                       <div class="card-body">                           
-                          <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>        
+                          <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>    
+                          <a class="btn btn-warning" href="{{ route('backup') }}">Generar Backup</a>        
+                          <a href="{{ route('backup') }}" class="btn btn-primary">Realizar Backup</a>
+
                          
                             <table class="table table-striped mt-2">
                               <thead style="background-color:#6777ef">                                     

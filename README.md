@@ -14,7 +14,7 @@ php artisan key:generate
 
 php artisan migrate
 
-php artisan db:seed --class SuperAdminSeeder
 php artisan db:seed --class SeederTablaPermisos
+php artisan db:seed --class SuperAdminSeeder
 
 php artisan serve
