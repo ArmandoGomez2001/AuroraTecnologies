@@ -9,7 +9,7 @@
         <i class=" fas fa-user-lock"></i><span>Roles</span>
     </a>
     <a class="nav-link" href="/blogs">
-        <i class=" fas fa-blog"></i><span>Blogs</span>
+        <i class="fas fa-tablet-alt"></i><span>Dispositivos</span>
     </a>
     <a class="nav-link" href="/sensors">
         <i class=" fas fa-blog"></i><span>sensors</span>

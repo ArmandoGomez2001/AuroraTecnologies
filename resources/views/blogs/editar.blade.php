@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h3 class="page__heading">Editar Blog</h3>
+            <h3 class="page__heading">Editar dispositivo</h3>
         </div>
         <div class="section-body">
             <div class="row">
@@ -30,16 +30,21 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                   <label for="titulo">Título</label>
-                                   <input type="text" name="titulo" class="form-control" value="{{ $blog->titulo }}">
+                                   <label for="titulo">Nombre del dispositivo (microondas, refrigerador, etc...)</label>
+                                   <input type="text" name="titulo" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                    
-                                <div class="form-floating">
-                                <label for="contenido">Contenido</label>
-                                <textarea class="form-control" name="contenido" style="height: 100px">{{ $blog->contenido }}</textarea>                                
-                                
+                            <div class="col-xs-12 col-sm-12 col-md-12">                    
+                                <div class="form-group">
+                                    <label for="titulo">Dirección IP</label>
+                                    <input type='text' id='idIP' name='ip'  class='form-control' value="" size='20' maxlength='15' title='Dirección IP'>                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">                    
+                                <div class="form-group">
+                                    <label for="" class="control-label">Grupo</label>
+                                    <select name="grupo_id" id="grupo_id" class="custom-select custom-select-sm select2" required>
+                                        <option value=""></option>
+                                    </select>
                                 </div>
                             <br>
                             <button type="submit" class="btn btn-primary">Guardar</button>                            
