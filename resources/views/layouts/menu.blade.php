@@ -11,4 +11,7 @@
     <a class="nav-link" href="/blogs">
         <i class="fas fa-tablet-alt"></i><span>Dispositivos</span>
     </a>
+    <a href="/config" class="nav-link">
+        <i class="fas fa-cog"></i><span>Configuracion</span>
+    </a>
 </li>
