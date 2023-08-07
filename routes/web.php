@@ -35,10 +35,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RolController::class);
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('blogs', BlogController::class);
-    Route::resource('config', ConfigController::class);
+    //Route::resource('config', ConfigController::class);
 });
-
+Route::get('/config', [ConfigController::class, 'index'])->name('config.index');
 Route::get('/config/respaldar', [ConfigController::class, 'respaldar'])->name('config.respaldar');
 Route::get('/config/restaurar', [ConfigController::class, 'restaurar'])->name('config.restaurar');
-
-
