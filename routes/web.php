@@ -26,15 +26,23 @@ use App\Http\Controllers\SensorController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/backup', [BackupController::class, 'createBackup'])->name('backup');
+Route::get('/backup', function () {
+    return view('backup');
+});
 
+Route::post('/backup', function () {
+    try {
+        Artisan::call('backup:sqlserver');
+        return redirect()->back()->with('success', 'Database backup completed successfully.');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Database backup failed: ' . $e->getMessage());
+    }
+})->name('backup.sqlserver');
 Route::get('/chart', [ChartController::class, 'getData'])->name('home');
 
 Auth::routes();
 
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 

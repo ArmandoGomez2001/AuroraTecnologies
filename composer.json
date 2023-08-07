@@ -13,6 +13,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravelcollective/html": "^6.2",
+        "spatie/db-dumper": "^3.4",
         "spatie/laravel-backup": "^7.8",
         "spatie/laravel-permission": "^4.3",
         "symfony/process": "^5.4"
