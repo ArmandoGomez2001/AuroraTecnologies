@@ -14,26 +14,8 @@
                             <details>
                                 <summary>Avanzado</summary>
                                 <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                        <label for="titulo">Restaurar/label>
-                                        <input type="text" name="titulo" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">                    
-                                        <div class="form-group">
-                                            <label for="titulo">Dirección IP</label>
-                                            <input type='text' id='idIP' name='ip'  class='form-control' value="" size='20' maxlength='15' title='Dirección IP'>                                </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">                    
-                                        <div class="form-group">
-                                            <label for="" class="control-label">Grupo</label>
-                                            <select name="grupo_id" id="grupo_id" class="custom-select custom-select-sm select2" required>
-                                                <option value=""></option>
-                                            </select>
-                                        </div>
-                                    <br>
-                                    <button type="submit" class="btn btn-primary">Guardar</button>                            
+                                    <a class="btn btn-light" href="{{ route('config.respaldar') }}">Respaldar</a>
+                                    <a class="btn btn-light" href="{{ route('config.restaurar') }}">Restaurar</a>                                   
                                 </div>
                             </details>
                         </div>

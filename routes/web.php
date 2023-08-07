@@ -38,3 +38,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('config', ConfigController::class);
 });
 
+Route::get('/config/respaldar', [ConfigController::class, 'respaldar'])->name('config.respaldar');
+Route::get('/config/restaurar', [ConfigController::class, 'restaurar'])->name('config.restaurar');
+
+
