@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
+
 
 class BackupSqlServer extends Command
 {
@@ -26,10 +28,16 @@ class BackupSqlServer extends Command
 
         $backupFileName = 'backup_Aurora'. date('Ymd_His') .'.bak';
 
-        $command = "sqlcmd -S {$host},{$port} -d {$database} -U {$username} -P {$password} -Q \"BACKUP DATABASE {$database} TO DISK='{$backupPath}/{$backupFileName}'\"";
+        // $command = "sqlcmd -S {$host},{$port} -d {$database} -U {$username} -P {$password} -Q \"BACKUP DATABASE {$database} TO DISK='{$backupPath}/{$backupFileName}'\"";
+      //  $command = "sqlcmd -S {$host},{$port} -d {$database} -U {$username} -P {$password} -Q \"EXEC dbbackup'\"";
+        $command = "sqlcmd -S $host,$port -d $database -U $username -P $password -Q \"EXEC RespaldoCompleto\"";
 
         exec($command);
 
-        $this->info('Database backup created successfully: ' . $backupFileName);
+       // $this->info('Database backup created successfully: ' . $backupFileName);
+
+        // $registros = DB::table('db.RegistroBackups')->get();
+        // return view('config.respaldar', compact('registros'));
+
     }
 }

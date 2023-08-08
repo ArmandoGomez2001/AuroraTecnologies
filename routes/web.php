@@ -10,6 +10,7 @@ use App\Http\Controllers\BackupController;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\SensorController;
+use Illuminate\Support\Facades\DB;
 
 
 use App\Http\Controllers\ConfigController;
@@ -27,18 +28,23 @@ use App\Http\Controllers\ConfigController;
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::get('/backup', function () {
-    return view('backup');
-});
+// Route::get('/backup', function () {
+//     return view('backup');
+// });
 
-Route::post('/backup', function () {
+Route::get('/backup', function () {
     try {
         Artisan::call('backup:sqlserver');
-        return redirect()->back()->with('success', 'Database backup completed successfully.');
+        $registros = DB::table('db.RegistroBackups')->get();
+        return view('config.respaldar', compact('registros'));
+        //return redirect()->back()->with('success', 'Database backup completed successfully.');
+        //return view('config.respaldar');
     } catch (\Exception $e) {
         return redirect()->back()->with('error', 'Database backup failed: ' . $e->getMessage());
     }
 })->name('backup.sqlserver');
+
+
 Route::get('/chart', [ChartController::class, 'getData'])->name('home');
 
 Auth::routes();

@@ -47,7 +47,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Si se confirma, enviar el formulario
-                        window.location.href="{{ route('config.respaldar') }}";
+                        window.location.href="{{ route('backup.sqlserver') }}";
                     }
                 });
             });
