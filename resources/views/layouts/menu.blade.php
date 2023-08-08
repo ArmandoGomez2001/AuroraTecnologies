@@ -15,6 +15,7 @@
     <a class="nav-link" href="/sensors">
         <i class=" fas fa-blog"></i><span>Sensores</span>
     </a>
-    {{-- @endif --}}
-
+    <a href="/config" class="nav-link">
+        <i class="fas fa-cog"></i><span>Configuracion</span>
+    </a>
 </li>
