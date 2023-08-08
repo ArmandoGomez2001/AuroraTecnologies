@@ -26,15 +26,34 @@ use App\Http\Controllers\SensorController;
 Route::get('/', function () {
     return view('auth.login');
 });
+<<<<<<< HEAD
 
 Route::get('/backup', [BackupController::class, 'createBackup'])->name('backup');
 
 // Route::get('/chart', [ChartController::class, 'getData'])->name('home');
+=======
+Route::get('/backup', function () {
+    return view('backup');
+});
+
+Route::post('/backup', function () {
+    try {
+        Artisan::call('backup:sqlserver');
+        return redirect()->back()->with('success', 'Database backup completed successfully.');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Database backup failed: ' . $e->getMessage());
+    }
+})->name('backup.sqlserver');
+Route::get('/chart', [ChartController::class, 'getData'])->name('home');
+>>>>>>> shamebak
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+<<<<<<< HEAD
 
+=======
+>>>>>>> shamebak
 
 // $user = auth()->user();
 // $isAdmin = $user->hasRole('Administrador');

@@ -13,8 +13,10 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        // Other commands...
+        \App\Console\Commands\BackupSqlServer::class,
     ];
+    
 
     /**
      * Define the application's command schedule.
