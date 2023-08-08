@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 @section('content')
     <section class="section">
         <div class="section-header">
@@ -31,9 +31,7 @@
                                         @endcan
                                         
                                         @can('borrar-rol')
-                                            {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                                                {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}
-                                            {!! Form::close() !!}
+                                        <button class="btn btn-danger delete-button" data-id="{{ $role->id }}">Borrar</button>
                                         @endcan
                                     </td>
                                 </tr>
@@ -51,4 +49,48 @@
                 </div>
             </div>
         </section>
+@endsection
+@section('scripts')
+<script>
+  // Script para manejar el botón "Borrar" del formulario
+  document.addEventListener('DOMContentLoaded', function () {
+    const deleteButtons = document.querySelectorAll('.delete-button');
+    deleteButtons.forEach((button) => {
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        const userId = event.target.getAttribute('data-id');
+        // Mostrar la confirmación de SweetAlert2 antes de enviar el formulario
+        Swal.fire({
+          title: '¿Estás seguro?',
+          text: 'No podrás revertir la siguiente acción.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: '¡Sí, bórrala!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Si se confirma, enviar el formulario
+            const deleteForm = document.createElement('form');
+            deleteForm.method = 'POST';
+            deleteForm.action = '{{ route('roles.destroy', '') }}/' + userId;
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = csrfToken;
+            const methodInput = document.createElement('input');
+            methodInput.type = 'hidden';
+            methodInput.name = '_method';
+            methodInput.value = 'DELETE';
+            deleteForm.appendChild(csrfInput);
+            deleteForm.appendChild(methodInput);
+            document.body.appendChild(deleteForm);
+            deleteForm.submit();
+          }
+        });
+      });
+    });
+  });
+</script>
 @endsection
