@@ -8,10 +8,13 @@
     <a class="nav-link" href="/roles">
         <i class=" fas fa-user-lock"></i><span>Roles</span>
     </a>
-    <a class="nav-link" href="/blogs">
+    {{-- <a class="nav-link" href="/blogs">
         <i class="fas fa-tablet-alt"></i><span>Dispositivos</span>
-    </a>
+    </a> --}}
+    {{-- @if($isAdmin) --}}
     <a class="nav-link" href="/sensors">
-        <i class=" fas fa-blog"></i><span>sensors</span>
+        <i class=" fas fa-blog"></i><span>Sensores</span>
     </a>
+    {{-- @endif --}}
+
 </li>

@@ -31,15 +31,14 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                    <label for="nombre">Nombre</label>
-                                   <input type="text" name="nombre" class="form-control" value="{{ $sensor->titulo }}">
+                                   <input type="text" name="nombre" class="form-control" value="{{ $sensor->nombre }}">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                     
                                 <div class="form-floating">
-                                <label for="ubicacion">Ubicacion</label>
-                                <textarea class="form-control" name="ubicacion" style="height: 100px">{{ $sensor->contenido }}</textarea>                                
-                                
+                                    <label for="ubicacion">Ubicacion</label>
+                                    <input type="text" name="ubicacion" class="form-control" value="{{ $sensor->ubicacion }}" >
                                 </div>
                             <br>
                             <button type="submit" class="btn btn-primary">Guardar</button>                            

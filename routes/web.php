@@ -24,18 +24,20 @@ use App\Http\Controllers\SensorController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
+
 Route::get('/backup', [BackupController::class, 'createBackup'])->name('backup');
 
-Route::get('/chart', [ChartController::class, 'getData'])->name('home');
+// Route::get('/chart', [ChartController::class, 'getData'])->name('home');
 
 Auth::routes();
 
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-
+// $user = auth()->user();
+// $isAdmin = $user->hasRole('Administrador');
 
 
 //y creamos un grupo de rutas protegidas para los controladores
