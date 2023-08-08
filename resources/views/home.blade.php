@@ -14,15 +14,12 @@
                         <div class="card-body">                          
                                 <div class="row">
                                     <h1 style="text-align: center; width: -webkit-fill-available; font-size: 30px">Medicion de KW</h1>
-                                    <div style="width: 80%; margin: auto;">
+                                    <div style="width: 80%; margin: auto; height: 500px;">
                                      
                                         <canvas id="lineChart"></canvas>
 
                                       
                                     </div>
-                                    <h1 style="text-align: center; width: -webkit-fill-available; font-size: 30px">Medicion de KW</h1>
-                                    <div style="width: 80%; margin: auto;">
-                                        <canvas id="lineChart2"></canvas>
 
                                       
                                     </div>
@@ -47,8 +44,9 @@
                                                             label: 'KW por hora',
                                                             data: ventas,
                                                             borderColor: 'rgba(75, 192, 192, 1)',
+                                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
                                                             borderWidth: 3,
-                                                            fill: false
+                                                            fill: true
                                                         }]
                                                     },
                                                     options: {
@@ -64,34 +62,7 @@
                                                         }
                                                     }
                                                 });
-                                                const ctx2 = document.getElementById('lineChart2').getContext('2d');
-                                                const lineChart2 = new Chart(ctx2, {
-                                                    type: 'line',
-                                                    data: {
-                                                        labels: meses,
-                                                        datasets: [{
-                                                            label: 'KW por hora',
-                                                            data: ventas,
-                                                            borderColor: 'rgba(75, 192, 192, 1)',
-                                                            borderWidth: 3,
-                                                            fill: false
-                                                        }]
-                                                    },
-                                                    options: {
-                                                        responsive: true,
-                                                        maintainAspectRatio: false,
-                                                        scales: {
-                                                            y: {
-                                                     
-                                                            }
-                                                        },
-                                                        plugins: {
-                                                            title: {
-                                                    
-                                                            }
-                                                        }
-                                                    }
-                                                });
+                                                
                                                 
                                             })
                                             .catch(error => {
