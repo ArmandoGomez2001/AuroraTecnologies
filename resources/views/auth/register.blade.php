@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="first_name">Full Name:</label><span
+                            <label for="first_name">Nombre completo:</label><span
                                     class="text-danger">*</span>
                             <input id="firstName" type="text"
                                    class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="email">Email:</label><span
+                            <label for="email">Correo electronico:</label><span
                                     class="text-danger">*</span>
                             <input id="email" type="email"
                                    class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
@@ -40,7 +40,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="password" class="control-label">Password
+                            <label for="password" class="control-label">Contraseña
                                 :</label><span
                                     class="text-danger">*</span>
                             <input id="password" type="password"
@@ -54,7 +54,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="password_confirmation"
-                                   class="control-label">Confirmar Password:</label><span
+                                   class="control-label">Confirmar contraseña:</label><span
                                     class="text-danger">*</span>
                             <input id="password_confirmation" type="password" placeholder="Confirma contraseña"
                                    class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid': '' }}"
