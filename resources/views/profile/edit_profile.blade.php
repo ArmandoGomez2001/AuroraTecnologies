@@ -23,7 +23,7 @@
                                 <br>
                                 <label
                                         class="image__file-upload btn btn-primary text-white"
-                                        tabindex="2"> Choose
+                                        tabindex="2"> Escoge
                                     <input type="file" name="photo" id="pfImage" class="d-none" >
                                 </label>
                             </div>
