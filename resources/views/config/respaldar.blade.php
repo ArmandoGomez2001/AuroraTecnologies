@@ -3,19 +3,25 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h3 class="page__heading">Configuracion</h3>
-    </div>
-    <div class="section-body">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="backup">
-                            HOLA JAJAJA PINCHES PUTOS
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <h3 class="page__heading">Registros de Respaldos</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tipo de Backup</th>
+                        <th>Fecha de Backup</th>
+                        <th>Ruta de Archivo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($registros as $registro)
+                    <tr>
+                        <td>{{ $registro->tipoBackup }}</td>
+                        <td>{{ $registro->fechaBackup }}</td>
+                        <td>{{ $registro->rutaArchivo }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </section>

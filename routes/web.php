@@ -40,3 +40,4 @@ Route::group(['middleware' => ['auth']], function() {
 Route::get('/config', [ConfigController::class, 'index'])->name('config.index');
 Route::get('/config/respaldar', [ConfigController::class, 'respaldar'])->name('config.respaldar');
 Route::get('/config/restaurar', [ConfigController::class, 'restaurar'])->name('config.restaurar');
+Route::get('config/restaurar', function () {abort(404);})->name('config.restaurar');
