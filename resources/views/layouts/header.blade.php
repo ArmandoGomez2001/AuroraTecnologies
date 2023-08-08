@@ -11,7 +11,7 @@
                class="nav-link dropdown-toggle nav-link-lg nav-link-user">
               
                 <div class="d-sm-none d-lg-inline-block">
-                    ¡Hola! {{\Illuminate\Support\Facades\Auth::user()->first_name}}</div>
+                    ¡Hola! {{\Illuminate\Support\Facades\Auth::user()->name}}</div>
             </a>
 
             <div class="dropdown-menu dropdown-menu-right">

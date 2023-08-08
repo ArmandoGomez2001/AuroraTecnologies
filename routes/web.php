@@ -26,7 +26,7 @@ use App\Http\Controllers\ConfigController;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('welcome');
 });
 // Route::get('/backup', function () {
 //     return view('backup');
