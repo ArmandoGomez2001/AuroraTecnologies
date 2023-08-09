@@ -18,8 +18,10 @@ class RestoreSqlServer extends Command
         $host = config('database.connections.sqlsrv.host');
         $port = config('database.connections.sqlsrv.port');
 
-        $backupFile = $this->argument('backupFile');
+        $dropCommand = "sqlcmd -S $host,$port -U $username -P $password -Q \"USE master; ALTER DATABASE $database SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE $database;\"";
+        exec($dropCommand);
 
+        $backupFile = $this->argument('backupFile');
         $command = "sqlcmd -S $host,$port -U $username -P $password -Q \"RESTORE DATABASE $database FROM DISK='$backupFile' WITH FILE = 1, NOUNLOAD, STATS = 20\"";
         
         exec($command);
