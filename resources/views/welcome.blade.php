@@ -16,7 +16,7 @@
   <body>
     <div>
     <nav class="navbar navbar-light bg-primary static-top">
-    <img src="{{ asset('img/logo-blanco.svg') }}" alt="logo" width="100">
+    <img src="{{ asset('img/logo-blanco.svg') }}" alt="logo" width="60">
       <div class="container d-flex justify-content-end">
           @if (Route::has('login'))
               <div class="d-flex align-items-center">
