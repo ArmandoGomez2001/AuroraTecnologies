@@ -14,8 +14,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <body>
-    
+    <div>
     <nav class="navbar navbar-light bg-primary static-top">
+    <img src="{{ asset('img/logo-blanco.svg') }}" alt="logo" width="100">
       <div class="container d-flex justify-content-end">
           @if (Route::has('login'))
               <div class="d-flex align-items-center">
@@ -45,6 +46,7 @@
           @endif   
       </div>
   </nav>
+                            </div>
   
       <!-- Masthead-->
       <header class="masthead" style="background-image: url('img/bg-showcase-1.jpg'); background-size: cover; background-position: center;">
