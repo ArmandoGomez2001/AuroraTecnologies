@@ -3,87 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\Process;
-use App\Models\backup;
+use Illuminate\Support\Facades\Artisan;
+
 
 class BackupController extends Controller
 {
 
-    // public function createBackup()
-    // {
-    //     $sqlcmdPath = 'C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\SQLCMD.EXE';
-
-    //     // Comando para ejecutar el SP utilizando sqlcmd
-    //     $command = [
-    //         $sqlcmdPath,
-    //         '-S',
-    //         'localhost', 
-    //         '-U',
-    //         'sa',  
-    //         '-P',
-    //         '123',      
-    //         '-d',
-    //         'bdproject',
-    //         '-q',
-    //         "exec dbo.dbbackup"
-    //     ];
-
-    //     // Crea el proceso con el comando
-    //     $process = new Process($command);
-
-    //     // Ejecuta el proceso y espera a que termine
-    //     $process->run();
-
-    //     // Verificar si el proceso fue exitoso o no
-    //     if (!$process->isSuccessful()) {
-    //         // Si el proceso falló, lanzar una excepción o manejar el error según tus necesidades.
-    //         throw new ProcessFailedException($process);
-    //     }
-
-    //     // Obtiene el resultado del proceso
-    //     $output = $process->getOutput();
-
-    //     // Devuelve la salida del proceso
-    //     return response()->json(['result' => $output]);
-    // }
-    public function createBackup()
+    public function index()
     {
-        $sqlcmdPath = 'C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\sqlcmd';
+        return view('config.index'); // Cambia 'restore' por el nombre de tu vista
+    }
 
-        // Comando para ejecutar el SP utilizando sqlcmd
-        $command = [
-            $sqlcmdPath,
-            '-S',
-            'localhost', 
-            '-d',
-            'bdproject',
-            '-U',
-            'sa',
-            '-P',
-            '123',
-            '-q',
-            'exec dbo.dbbackup'
-        ];
+    public function execute()
+    {
+        try {
+            Artisan::call('backup:sqlserver');
 
-        // Crea el proceso con el comando
-        $process = new Process($command);
-
-        // Ejecuta el proceso y espera a que termine
-        $process->run();
-
-        // Verifica si el proceso fue exitoso o no
-        if (!$process->isSuccessful()) {
-            // Si el proceso falló, obtener el mensaje de error.
-            $errorOutput = $process->getErrorOutput();
-            throw new ProcessFailedException($process, $errorOutput);
+            return response()->json([
+                'success' => true,
+                'message' => 'El respaldo de la base de datos se completó exitosamente.',
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al intentar respaldar la base de datos.',
+            ], 500);
         }
-
-        // Obtiene el resultado del proceso
-        $output = $process->getOutput();
-
-        // Devuelve la salida del proceso
-        return response()->json(['result' => $output]);
     }
 
 }
