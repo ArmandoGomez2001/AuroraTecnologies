@@ -8,6 +8,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\FileImportController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,7 +38,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('blogs', BlogController::class);
     //Route::resource('config', ConfigController::class);
 });
+//RUTAS DE CONFIG
 Route::get('/config', [ConfigController::class, 'index'])->name('config.index');
 Route::get('/config/respaldar', [ConfigController::class, 'respaldar'])->name('config.respaldar');
 Route::get('/config/restaurar', [ConfigController::class, 'restaurar'])->name('config.restaurar');
 Route::get('config/restaurar', function () {abort(404);})->name('config.restaurar');
+
+//
+Route::post('/config/process', [FileImportController::class, 'process'])->name('config.process');

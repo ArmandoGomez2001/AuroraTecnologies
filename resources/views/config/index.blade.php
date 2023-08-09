@@ -12,11 +12,25 @@
                     <div class="card-body">
                         <div class="backup">
                             <details>
-                                <summary>Avanzado</summary>
+                                <summary>Precios</summary>
                                 <div class="row">
-                                    <a id="proceder" class="btn btn-light">Respaldar</a>
-                                    <a class="btn btn-light" href="{{ route('config.restaurar') }}">Restaurar</a>                                   
+                                    {!! Form::open(array('route' => 'config.process','method'=>'POST', 'enctype'=>'multipart/form-data')) !!}
+                                    @csrf
+                                    <input type="file" name="file" required>
+                                    <br>
+                                    <button type="submit">Importar Archivo</button>
+                                    {!! Form::close() !!}
+                                    <div id="floating-div" style="display: none;">
+                                        <!-- Contenido del div flotante -->
+                                    </div>
                                 </div>
+                            </details>
+                            <details>
+                                <summary>Avanzado</summary>
+                                    <div class="row">
+                                        <a id="proceder" class="btn btn-light">Respaldar</a>
+                                        <a class="btn btn-light" href="{{ route('config.restaurar') }}">Restaurar</a>                                   
+                                    </div>
                             </details>
                         </div>
                     </div>
