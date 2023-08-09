@@ -20,7 +20,7 @@ class RestoreSqlServer extends Command
 
         $backupFile = $this->argument('backupFile');
 
-        $command = "sqlcmd -S $host,$port -d $database -U $username -P $password -Q \"RESTORE DATABASE $database FROM DISK='$backupFile' WITH FILE = 1, NOUNLOAD, STATS = 20\"";
+        $command = "sqlcmd -S $host,$port -U $username -P $password -Q \"RESTORE DATABASE $database FROM DISK='$backupFile' WITH FILE = 1, NOUNLOAD, STATS = 20\"";
         
         exec($command);
 
