@@ -1,21 +1,20 @@
 <li class="side-menus {{ Request::is('*') ? 'active' : '' }}">
-    <a class="nav-link" href="/home">
-        <i class=" fas fa-building"></i><span>Dashboard</span>
-    </a>
+    
+    @role('Administrador')
     <a class="nav-link" href="/usuarios">
         <i class=" fas fa-users"></i><span>Usuarios</span>
     </a>
     <a class="nav-link" href="/roles">
         <i class=" fas fa-user-lock"></i><span>Roles</span>
     </a>
-    {{-- <a class="nav-link" href="/blogs">
-        <i class="fas fa-tablet-alt"></i><span>Dispositivos</span>
-    </a> --}}
-    {{-- @if($isAdmin) --}}
+    <a href="/config" class="nav-link">
+        <i class="fas fa-cog"></i><span>Configuración</span>
+    </a>
+    @endrole
+    <a class="nav-link" href="/home">
+        <i class=" fas fa-building"></i><span>Dashboard</span>
+    </a>
     <a class="nav-link" href="/sensors">
         <i class=" fas fa-blog"></i><span>Sensores</span>
-    </a>
-    <a href="/config" class="nav-link">
-        <i class="fas fa-cog"></i><span>Configuracion</span>
     </a>
 </li>
