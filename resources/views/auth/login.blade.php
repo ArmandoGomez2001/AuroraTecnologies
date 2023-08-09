@@ -67,6 +67,6 @@
     </div>
     <div class="mt-5 text-muted text-center">
         ¿No tienes una cuenta? <a
-                href="{{ route('register') }}">RegistraAqui</a>
+                href="{{ route('register') }}">Registrate aquí</a>
     </div>
 @endsection
