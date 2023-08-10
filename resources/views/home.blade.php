@@ -12,38 +12,41 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">                          
-                                <div class="row">
+                                <div class="row" style="
+                                padding-left: 50px;
+                                padding-right: 50px;
+                            ">
                                     <h1 style="text-align: center; width: -webkit-fill-available; font-size: 30px">Consumo por hora</h1>
-                                    <div style="width: 80%; margin: auto; height: 500px;">
+                                    <div class="border border-4 shadow p-3 mb-5 bg-body-tertiary rounded" style="width: 80%; margin: auto; height: 500px;">
                                      
                                         <canvas id="lineChart"></canvas>
 
                                       
                                     </div>
                                     <!-- Existing code as it is -->
-
+                                    <div class="row" style="display: contents">
                                         <!-- Add the first additional chart -->
-                                        <div class="row">
+                                        <div class="col-lg-6 border border-4 shadow p-3 mb-5 bg-body-tertiary rounded">
                                             <h1 style="text-align: center; width: -webkit-fill-available; font-size: 30px">Consumo diario</h1>
-                                            <div style="width: 90%; margin: auto; height: 500px;">
+                                            <div style="height: 500px;">
                                                 <canvas id="dailyConsumptionChart"></canvas>
                                             </div>
                                         </div>
 
                                         <!-- Add the second additional chart -->
-                                        <div class="row">
+                                        <div class="col-lg-6 border border-4 shadow p-3 mb-5 bg-body-tertiary rounded">
                                             <h1 style="text-align: center; width: -webkit-fill-available; font-size: 30px">Consumo mensual</h1>
-                                            <div style="width: 90%; margin: auto; height: 500px;">
+                                            <div style="height: 500px;">
                                                 <canvas id="monthlyConsumptionChart"></canvas>
                                             </div>
                                         </div>
-
+                                    </div>
                                         <!-- Existing code as it is -->
 
                                         <!-- Add the third and fourth additional charts in a single row with two columns -->
                                         <div class="row" style="display: contents">
                                             <!-- Third additional chart: Consumption by Area -->
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-6 border border-4 shadow p-3 mb-5 bg-body-tertiary rounded">
                                                 <h1 style="text-align: center; font-size: 30px">Consumo por área</h1>
                                                 <div style="height: 500px;">
                                                     <canvas id="areaConsumptionChart"></canvas>
@@ -51,7 +54,7 @@
                                             </div>
                                             
                                             <!-- Fourth additional chart: Top 5 Consumers -->
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-6 border border-4 shadow p-3 mb-5 bg-body-tertiary rounded">
                                                 <h1 style="text-align: center; font-size: 30px">Top 5 Consumidores</h1>
                                                 <div style="height: 500px;">
                                                     <canvas id="topConsumersChart"></canvas>
