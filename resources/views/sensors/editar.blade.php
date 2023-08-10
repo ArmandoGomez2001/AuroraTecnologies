@@ -65,7 +65,7 @@
                 // Mostrar la confirmación de SweetAlert2 antes de enviar el formulario
                 Swal.fire({
                     title: '¿Estás seguro?',
-                    text: '¿Deseas Eliminar este sensor?',
+                    text: '¿Deseas editar este sensor?',
                     icon: 'alert',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
