@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="card card-primary">
-        <div class="card-header"><h4>Login</h4></div>
+        <div class="card-header"><h4>Iniciar sesión</h4></div>
 
         <div class="card-body">
             <form method="POST" action="{{ route('login') }}">
@@ -25,9 +25,7 @@
                            placeholder="Ingresa correo electronico" tabindex="1"
                            value="{{ (Cookie::get('email') !== null) ? Cookie::get('email') : old('email') }}" autofocus
                            required>
-                    <div class="invalid-feedback">
-                        {{ $errors->first('email') }}
-                    </div>
+                   
                 </div>
 
                 <div class="form-group">
@@ -35,7 +33,7 @@
                         <label for="password" class="control-label">Contraseña</label>
                         <div class="float-right">
                             <a href="{{ route('password.request') }}" class="text-small">
-                                Olvidaste contraseña?
+                                ¿Olvidaste contraseña?
                             </a>
                         </div>
                     </div>
@@ -59,7 +57,7 @@
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                        Login
+                        Iniciar sesión
                     </button>
                 </div>
             </form>
