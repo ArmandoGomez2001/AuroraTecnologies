@@ -95,8 +95,18 @@
                                                         responsive: true,
                                                         maintainAspectRatio: false,
                                                         scales: {
+                                                            x: {
+                                                                type: 'category', // Specify that the X axis is a category axis
+                                                                title: {
+                                                                    display: true,
+                                                                    text: 'Dia' // Label for the X axis
+                                                                }
+                                                            },
                                                             y: {
-                                                                beginAtZero: true,
+                                                                title: {
+                                                                    display: true,
+                                                                    text: 'KW' // Label for the Y axis
+                                                                }
                                                             }
                                                         },
                                                         plugins: {}
@@ -120,8 +130,18 @@
                                                         responsive: true,
                                                         maintainAspectRatio: false,
                                                         scales: {
+                                                            x: {
+                                                                type: 'category', // Specify that the X axis is a category axis
+                                                                title: {
+                                                                    display: true,
+                                                                    text: 'Meses' // Label for the X axis
+                                                                }
+                                                            },
                                                             y: {
-                                                                beginAtZero: true,
+                                                                title: {
+                                                                    display: true,
+                                                                    text: 'KW' // Label for the Y axis
+                                                                }
                                                             }
                                                         },
                                                         plugins: {}
@@ -181,9 +201,19 @@
                                                     responsive: true,
                                                     maintainAspectRatio: false,
                                                     scales: {
-                                                        y: {
-                                                            beginAtZero: true,
-                                                        }
+                                                        x: {
+                                                                type: 'category', // Specify that the X axis is a category axis
+                                                                title: {
+                                                                    display: true,
+                                                                    text: 'Consumidor' // Label for the X axis
+                                                                }
+                                                            },
+                                                            y: {
+                                                                title: {
+                                                                    display: true,
+                                                                    text: 'KW' // Label for the Y axis
+                                                                }
+                                                            }
                                                     },
                                                     plugins: {}
                                                 }
@@ -205,7 +235,7 @@
                                             .then(response => response.json())
                                             .then(data => {
                                                 // Una vez obtenidos los datos, creamos la gráfica
-                                                const meses = data.map(item => item.horas);
+                                                const meses = data.map(item => item.horas + " PM");
                                                 const ventas = data.map(item => item.kw);
 
                                                 const maxValue = data.map(item => item.kw);
@@ -228,8 +258,18 @@
                                                         responsive: true,
                                                         maintainAspectRatio: false,
                                                         scales: {
+                                                            x: {
+                                                                type: 'category', // Specify that the X axis is a category axis
+                                                                title: {
+                                                                    display: true,
+                                                                    text: 'Hora' // Label for the X axis
+                                                                }
+                                                            },
                                                             y: {
-                                                     
+                                                                title: {
+                                                                    display: true,
+                                                                    text: 'KW' // Label for the Y axis
+                                                                }
                                                             }
                                                         },
                                                         plugins: {
