@@ -235,7 +235,7 @@
                                             .then(response => response.json())
                                             .then(data => {
                                                 // Una vez obtenidos los datos, creamos la gráfica
-                                                const meses = data.map(item => item.horas);
+                                                const meses = data.map(item => item.horas + " PM");
                                                 const ventas = data.map(item => item.kw);
 
                                                 const maxValue = data.map(item => item.kw);
@@ -262,7 +262,7 @@
                                                                 type: 'category', // Specify that the X axis is a category axis
                                                                 title: {
                                                                     display: true,
-                                                                    text: 'Meses' // Label for the X axis
+                                                                    text: 'Hora' // Label for the X axis
                                                                 }
                                                             },
                                                             y: {
