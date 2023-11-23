@@ -63,7 +63,79 @@
                                         </div>
 
 
+                                         <!-- Agrega esto a tu vista -->
+                                         <form action="{{ route('filtrar-fechas') }}" method="get">
+                                            <label for="fecha_inicio">Fecha de inicio:</label>
+                                            <input type="date" name="fecha_inicio" id="fecha_inicio">
+                                        
+                                            <label for="fecha_fin">Fecha de fin:</label>
+                                            <input type="date" name="fecha_fin" id="fecha_fin">
+                                        
+                                            <button type="submit">Filtrar</button>
+                                        </form>
+                                        
+                                        <canvas id="miGrafica"></canvas>
 
+                                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", function() {
+                                                var ctx = document.getElementById('miGrafica').getContext('2d');
+                                                var datos = @json($datos);
+                                        
+                                                var fechas = datos.map(function(dato) {
+                                                    return dato.timestamp;
+                                                });
+                                        
+                                                var valores = datos.map(function(dato) {
+                                                    return dato.predicted_energy_consumption;
+                                                });
+                                        
+                                                var myChart = new Chart(ctx, {
+                                                    type: 'line',
+                                                    data: {
+                                                        labels: fechas,
+                                                        datasets: [{
+                                                            label: 'Consumo',
+                                                            data: valores,
+                                                            borderColor: 'rgba(75, 192, 192, 1)',
+                                                            backgroundColor: 'rgba(75, 192, 192, 0.2)', // Add a background color for the area under the line
+                                                            borderWidth: 2,
+                                                            pointRadius: 5, // Increase the size of data points
+                                                            pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                                                            pointBorderColor: 'rgba(75, 192, 192, 1)',
+                                                        }]
+                                                    },
+                                                    options: {
+                                                        scales: {
+                                                            x: [{
+                                                                type: 'time',
+                                                                time: {
+                                                                    unit: 'day'
+                                                                },
+                                                                ticks: {
+                                                                    maxRotation: 0, // Rotate x-axis labels for better readability
+                                                                    autoSkip: true,
+                                                                    maxTicksLimit: 10 // Limit the number of x-axis ticks for better spacing
+                                                                }
+                                                            }],
+                                                            y: [{
+                                                                ticks: {
+                                                                    beginAtZero: true,
+                                                                    callback: function(value) {
+                                                                        return value.toLocaleString(); // Add commas for better y-axis label formatting
+                                                                    }
+                                                                }
+                                                            }]
+                                                        },
+                                                        legend: {
+                                                            display: true,
+                                                            position: 'top', // Position the legend at the top for better visibility
+                                                        }
+                                                    }
+                                                });
+                                            });
+                                        </script>
 
                                         <!-- Existing code as it is -->
 

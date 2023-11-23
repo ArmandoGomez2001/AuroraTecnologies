@@ -56,6 +56,7 @@ Route::post('/restore/execute', [RestoreController::class, 'execute'])->name('ex
 
 
 Route::get('/chart', [ChartController::class, 'getData'])->name('home');
+Route::get('/home', [ChartController::class, 'filtrarFechas'])->name('filtrar-fechas');
 
 Auth::routes();
 
