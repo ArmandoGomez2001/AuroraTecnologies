@@ -8,5 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Sensor extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre', 'ubicacion'];
+
+    protected $table = 'sensores';
+
+    protected $fillable = ['nombre', 'ubicacion', 'usuario'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'usuario');
+    }
 }
+

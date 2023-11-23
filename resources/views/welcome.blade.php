@@ -21,7 +21,14 @@
           @if (Route::has('login'))
               <div class="d-flex align-items-center">
                   @auth
-                      <a href="{{ url('/home') }}" class="text-sm text-gray-700 mx-2">Home</a>
+                  <button type="button" class="btn btn-secondary mx-2" id="loginhome">Home</button>
+                  <script>
+                      $(document).ready(function() {
+                          $("#loginhome").on("click", function() {
+                              window.location.href = "{{ url('/home') }}";
+                          });
+                      });
+                  </script>
                   @else
                       <button type="button" class="btn btn-secondary mx-2" id="loginButton">Log in</button>
                       <script>
