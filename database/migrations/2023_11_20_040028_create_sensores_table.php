@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSensorsTable extends Migration
+class CreateSensoresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateSensorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sensors', function (Blueprint $table) {
+        Schema::create('sensores', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->string('ubicacion');
+            $table->unsignedBigInteger('usuario')->nullable(); // Add the usuario field
+            $table->foreign('usuario')->references('id')->on('users'); // Assuming your users table is named 'users'
             $table->timestamps();
-           
         });
     }
 
@@ -29,6 +30,6 @@ class CreateSensorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sensors');
+        Schema::dropIfExists('sensores');
     }
 }

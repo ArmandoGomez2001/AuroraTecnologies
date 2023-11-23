@@ -55,7 +55,7 @@
                                             
                                             <!-- Fourth additional chart: Top 5 Consumers -->
                                             <div class="col-lg-6 border border-4 shadow p-3 mb-5 bg-body-tertiary rounded">
-                                                <h1 style="text-align: center; font-size: 30px">Top 5 Consumidores</h1>
+                                                <h1 style="text-align: center; font-size: 30px">Top 5 Sensores</h1>
                                                 <div style="height: 500px;">
                                                     <canvas id="topConsumersChart"></canvas>
                                                 </div>
@@ -157,7 +157,7 @@
                                                     data: {
                                                         labels: dailyLabels,
                                                         datasets: [{
-                                                            label: 'Daily Consumption',
+                                                            label: 'Consumo Diario',
                                                             data: dailyData,
                                                             backgroundColor: 'rgba(54, 162, 235, 0.6)',
                                                             borderWidth: 1,
@@ -192,7 +192,7 @@
                                                     data: {
                                                         labels: monthlyLabels,
                                                         datasets: [{
-                                                            label: 'Monthly Consumption',
+                                                            label: 'Consumo Mensual',
                                                             data: monthlyData,
                                                             backgroundColor: 'rgba(255, 99, 132, 0.6)',
                                                             borderWidth: 1,
@@ -233,7 +233,7 @@
                                             const areaData = [1200, 850, 700, 950, 1100];
 
                                             // Predetermined data for the fourth additional chart (top 5 consumers)
-                                            const topConsumerLabels = ['Consumer A', 'Consumer B', 'Consumer C', 'Consumer D', 'Consumer E'];
+                                            const topConsumerLabels = ['Microondas', 'Televisor', 'PC Gamer', 'Refrigerador', 'Estufa'];
                                             const topConsumerData = [550, 480, 600, 520, 540];
 
                                             // Create the third additional chart (consumption by area)
@@ -263,7 +263,7 @@
                                                 data: {
                                                     labels: topConsumerLabels,
                                                     datasets: [{
-                                                        label: 'Top 5 Consumers',
+                                                        label: 'Top 5 Consumidores',
                                                         data: topConsumerData,
                                                         backgroundColor: 'rgba(75, 192, 192, 0.6)',
                                                         borderWidth: 1,
