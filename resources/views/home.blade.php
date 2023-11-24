@@ -61,7 +61,45 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                         <h1>Consumption Data</h1>
+                                        <style>
+                                            table {
+                                                width: 100%;
+                                                border-collapse: collapse;
+                                                margin-top: 20px;
+                                            }
+                                        
+                                            th, td {
+                                                border: 1px solid #dddddd;
+                                                text-align: left;
+                                                padding: 8px;
+                                            }
+                                        
+                                            th {
+                                                background-color: #f2f2f2;
+                                            }
+                                        
+                                            tr:hover {
+                                                background-color: #f5f5f5;
+                                            }
+                                        </style>
+                                        
+                                        <table>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Fecha y Hora</th>
+                                                <th>Cocina</th>
+                                                <!-- Agrega otras columnas según sea necesario -->
+                                            </tr>
+                                            @foreach($consumptionData as $data)
+                                                <tr>
+                                                    <td>{{ $data->ID }}</td>
+                                                    <td>{{ $data->DATE_TIME }}</td>
+                                                    <td>{{ $data->Cocina }}</td>
+                                                    <!-- Agrega otras columnas según sea necesario -->
+                                                </tr>
+                                            @endforeach
+                                        </table>
 
                                          <!-- Agrega esto a tu vista -->
                                          <form action="{{ route('filtrar-fechas') }}" method="get">
