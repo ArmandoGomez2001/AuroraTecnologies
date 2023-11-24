@@ -14,17 +14,20 @@ class ChartController extends Controller
         return response()->json($data);
     }
 
-    public function filtrarFechas(Request $request)
+     public function filtrarFechas(Request $request)
     {
         $fechaInicio = $request->input('fecha_inicio');
         $fechaFin = $request->input('fecha_fin');
-
+    
         $datos = DB::table('predicted_energy_consumption')
             ->whereBetween('timestamp', [$fechaInicio, $fechaFin])
             ->orderBy('timestamp')
             ->get();
-
-        return view('/home', ['datos' => $datos]);
+    
+        $consumptionData = DB::table('consumo_ubicacion')->get();
+        \Log::info($consumptionData); // Add this line to log data
+    
+        return view('home', ['datos' => $datos, 'consumptionData' => $consumptionData]);
     }
 
 }
