@@ -28,8 +28,20 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                   <label for="nombre">Nombre</label>
-                                   <input type="text" name="nombre" class="form-control">
+                                   <label for="code_sensor">Code sensor</label>
+                                   <input type="text" name="code_sensor" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <label for="usuarios">Usuario</label>
+                                    {!! Form::select('usuario', $usuarios, null, array('class' => 'form-control')) !!}
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                   <label for="name_aparato">Name aparato</label>
+                                   <input type="text" name="name_aparato" class="form-control">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">

@@ -11,7 +11,7 @@ class Sensor extends Model
 
     protected $table = 'sensores';
 
-    protected $fillable = ['nombre', 'ubicacion', 'usuario'];
+    protected $fillable = ['code_sensor','name_aparato', 'ubicacion', 'usuario'];
 
     public function user()
     {

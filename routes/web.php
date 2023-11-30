@@ -9,6 +9,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BackupController;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\ChartController;
+use App\Http\Controllers\ChartdateController;
 use App\Http\Controllers\SensorController;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\RestoreController;
@@ -60,6 +61,11 @@ Route::get('/chart', [ChartController::class, 'getData'])->name('home');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/home', [ChartController::class, 'filtrarFechas'])->name('filtrar-fechas');
+
+// Route::get('/home', [ChartdateController::class, 'index'])->name('chartdate');
 
 // $user = auth()->user();
 // $isAdmin = $user->hasRole('Administrador');
