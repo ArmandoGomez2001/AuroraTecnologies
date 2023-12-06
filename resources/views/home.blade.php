@@ -3,6 +3,8 @@
 <head>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment"></script>
+
 
 </head>
 @section('content')
@@ -41,7 +43,12 @@
                                                 <h5 class="card-title"><i class="fas fa-dollar-sign fa-lg"></i> Gasto actual
                                                 </h5>
                                                 <p class="card-text value">
-                                                    <script></script> $
+
+                                                    @foreach ($bill as $pagar)
+                                                        {{ $pagar->Total_Pagar }}
+                                                    @endforeach
+
+                                                    $
                                                 </p>
                                             </div>
                                         </div>
@@ -49,90 +56,159 @@
                                 </div>
                             </div>
 
-                            <div class="row"
-                                style="
+
+
+                            <label for="deviceSelector">Selecciona un dispositivo:</label>
+                            <select id="deviceSelector" onchange="updateChartData()">
+                                <option value="xbox">Xbox</option>
+                                <option value="Computadora">Computadora</option>
+                                <option value="Refrigerador">Refrigerador</option>
+                                <!-- Agrega más opciones según sea necesario -->
+                            </select>
+                        </div>
+                        <div class="border border-4 shadow p-3 mb-5 bg-body-tertiary rounded"
+                            style="width: 80%; margin: auto; height: 40%;">
+                            <h1 style="text-align: center; width: -webkit-fill-available; font-size: 30px">Kw por segundo
+                            </h1>
+                            <canvas id="deviceUsageChart"></canvas>
+
+
+                        </div>
+
+                        <div class="row"
+                            style="
                                 padding-left: 50px;
                                 padding-right: 50px;">
 
-                                <!-- Existing code as it is -->
-                                <div class="row" style="display: contents">
-                                    <!-- Add the first additional chart -->
-                                    <div class="col-lg-6 border border-4 shadow p-3 mb-5 bg-body-tertiary rounded">
-                                        <h1 style="text-align: center; width: -webkit-fill-available; font-size: 30px">
-                                            Consumo diario</h1>
-                                        <div style="height: 500px;">
-                                            <canvas id="dailyConsumptionChart"></canvas>
-                                        </div>
-                                    </div>
-
-                                    <!-- Add the second additional chart -->
-                                    <div class="col-lg-6 border border-4 shadow p-3 mb-5 bg-body-tertiary rounded">
-                                        <h1 style="text-align: center; width: -webkit-fill-available; font-size: 30px">
-                                            Consumo mensual</h1>
-                                        <div style="height: 500px;">
-                                            <canvas id="monthlyConsumptionChart"></canvas>
-                                        </div>
+                            <!-- Existing code as it is -->
+                            <div class="row" style="display: contents">
+                                <!-- Add the first additional chart -->
+                                <div class="col-lg-6 border border-4 shadow p-3 mb-5 bg-body-tertiary rounded">
+                                    <h1 style="text-align: center; width: -webkit-fill-available; font-size: 30px">Consumo
+                                        diario</h1>
+                                    <div style="height: 500px;">
+                                        <canvas id="dailyConsumptionChart"></canvas>
                                     </div>
                                 </div>
-                                <!-- Existing code as it is -->
 
-
-
-                                <!-- Fourth additional chart: Top 5 Consumers -->
-                                <h1 style="text-align: center; width: -webkit-fill-available; font-size: 30px">Top 5
-                                    dispositivos</h1>
-                                <div class="border border-4 shadow p-3 mb-5 bg-body-tertiary rounded"
-                                    style="width: 80%; margin: auto; height: 500px;">
-
-                                    <canvas id="topConsumersChart"></canvas>
-
-
+                                <!-- Add the second additional chart -->
+                                <div class="col-lg-6 border border-4 shadow p-3 mb-5 bg-body-tertiary rounded">
+                                    <h1 style="text-align: center; width: -webkit-fill-available; font-size: 30px">Consumo
+                                        mensual</h1>
+                                    <div style="height: 500px;">
+                                        <canvas id="monthlyConsumptionChart"></canvas>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- Existing code as it is -->
+
+
+
+                            <!-- Fourth additional chart: Top 5 Consumers -->
+                            <h1 style="text-align: center; width: -webkit-fill-available; font-size: 30px">Top 5
+                                dispositivos</h1>
+                            <div class="border border-4 shadow p-3 mb-5 bg-body-tertiary rounded"
+                                style="width: 80%; margin: auto; height: 500px;">
+
+                                <canvas id="topConsumersChart"></canvas>
+
+
+                            </div>
+
+                            <style>
+                                .card-title i {
+                                    font-size: 24px;
+                                    /* Ajusta el tamaño según tus preferencias */
+                                    margin-right: 8px;
+                                    /* Agrega un espacio entre el icono y el texto si es necesario */
+                                }
+
+                                .card-text {
+                                    font-size: 24px;
+                                }
+
+                                table {
+                                    width: 100%;
+                                    border-collapse: collapse;
+                                    margin-top: 20px;
+                                }
+
+                                th,
+                                td {
+                                    border: 1px solid #dddddd;
+                                    text-align: left;
+                                    padding: 8px;
+                                }
+
+                                th {
+                                    background-color: #f2f2f2;
+                                }
+
+                                tr:hover {
+                                    background-color: #f5f5f5;
+                                }
+                            </style>
+
                             <div>
-                                <hr> <!-- Línea adicional -->
-                                <h1 class="cocina">Cocina (Ultimos 7 dias)</h1>
+                                <hr> <!-- Additional line -->
+                                <h1 class="cocina">Consumo de los dispositivos</h1>
                                 <label for="nombre">Seleccionar Nombre:</label>
-                                <select id="nombre" onchange="updateChart()">
-                                    @foreach ($nombres as $nombre)
-                                        <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                <select id="nombre" onchange="updateChartt()">
+                                    <?php
+                                    $uniqueNames = [];
+                                    ?>
+                                    @foreach ($dataRead as $data)
+                                        <?php
+                                    // Verificar si el name_aparato ya se ha agregado al conjunto
+                                    if (!in_array($data->name_aparato, $uniqueNames)) {
+                                        // Si no, agregarlo al conjunto y mostrar la opción en el select
+                                        $uniqueNames[] = $data->name_aparato;
+                                    ?>
+                                        <option value="{{ $data->name_aparato }}">{{ $data->name_aparato }}</option>
+                                        <?php
+                                    }
+                                    ?>
                                     @endforeach
                                 </select>
                             </div>
 
 
-
-                            <canvas id="lecturaSensorChart" width="400" height="200"></canvas>
+                            <canvas id="lecturaSensorChartt" width="400" height="200"></canvas>
 
                             <script>
-                                var ctx = document.getElementById('lecturaSensorChart').getContext('2d');
-                                var lecturaSensor = @json($lecturaSensor);
+                                var ctxx = document.getElementById('lecturaSensorChartt').getContext('2d');
+                                var lecturaSensor = @json($dataRead);
 
-                                var myChart; // Declarar la variable fuera de la función
+                                var myChartt; // Declarar la variable fuera de la función
 
                                 // Función para actualizar la gráfica según el nombre seleccionado
-                                function updateChart() {
+                                function updateChartt() {
                                     var selectedNombre = document.getElementById('nombre').value;
                                     var lecturasFiltradas = lecturaSensor.filter(function(dato) {
-                                        return dato.name_aparato === selectedNombre;
+                                        return dato.name_aparato == selectedNombre;
                                     });
 
-                                    var ultimosRegistros = lecturasFiltradas.slice(-7);
+                                    //var ultimosRegistros = lecturasFiltradas.slice(-7);
 
-                                    var date = ultimosRegistros.map(function(dato) {
+                                    var date = lecturasFiltradas.map(function(dato) {
                                         return dato.date.substring(0, 10);
                                     });
 
-                                    var valores = ultimosRegistros.map(function(dato) {
-                                        return dato.kw_per_day;
+                                    var valores = lecturasFiltradas.map(function(dato) {
+                                        return dato.total_kw;
                                     });
+
+                                    var nameUser = lecturasFiltradas.map(function(dato) {
+                                        return dato.name;
+                                    });
+
                                     // Limpiar la gráfica anterior
-                                    if (myChart) {
-                                        myChart.destroy();
+                                    if (myChartt) {
+                                        myChartt.destroy();
                                     }
 
                                     // Crear una nueva gráfica con datos actualizados
-                                    myChart = new Chart(ctx, {
+                                    myChartt = new Chart(ctxx, {
                                         type: 'bar',
                                         data: {
                                             labels: date,
@@ -181,45 +257,159 @@
                                 }
 
                                 // Llamar a la función inicialmente para cargar la gráfica con el primer nombre
-                                updateChart();
+                                updateChartt();
                             </script>
-                            <h1>Datos de consumo</h1>
+
+
+
+                            <hr> <!-- Additional line -->
+                            <h1 class="cocina">Consumo de los dispositivos</h1>
+
+                            <div class="border border-4 shadow p-3 mb-5 bg-body-tertiary rounded"
+                                style=" width: 80%; margin: auto;height: 500px;">
+                                <table>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Fecha y Hora</th>
+                                        <th>Cocina</th>
+                                        <!-- Agrega otras columnas según sea necesario -->
+                                    </tr>
+                                    @foreach ($consumptionData as $data)
+                                        <tr>
+                                            <td>{{ $data->ID }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($data->DATE_TIME)->toDateString() }}</td>
+                                            <td>{{ $data->Cocina }}</td>
+                                            <!-- Agrega otras columnas según sea necesario -->
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </div>
+
+
+
+
+                            <h1 style="margin-left: 3%;">Consumo entre fechas</h1>
+
                             <style>
-                                .card-title i {
-                                    font-size: 24px;
-                                    /* Ajusta el tamaño según tus preferencias */
-                                    margin-right: 8px;
-                                    /* Agrega un espacio entre el icono y el texto si es necesario */
+                                .formFecha {
+                                    display: flex;
+                                    flex-direction: row;
+                                    align-items: center;
+                                    margin-left: 2%;
                                 }
 
-                                .card-text {
-                                    font-size: 24px;
+                                .form-group {
+                                    margin-bottom: 10px;
                                 }
 
-                                table {
-                                    width: 100%;
-                                    border-collapse: collapse;
-                                    margin-top: 20px;
+                                label {
+                                    margin-left: 2%;
+                                    font-size: large;
                                 }
 
-                                th,
-                                td {
-                                    border: 1px solid #dddddd;
-                                    text-align: left;
-                                    padding: 8px;
+                                input[type="date"],
+                                button {
+                                    padding: 5px;
+                                    font-size: 16px;
                                 }
 
-                                th {
-                                    background-color: #f2f2f2;
+                                button {
+                                    background-color: #007bff;
+                                    color: white;
+                                    border: none;
+                                    cursor: pointer;
                                 }
 
-                                tr:hover {
-                                    background-color: #f5f5f5;
+                                button:hover {
+                                    background-color: #0056b3;
                                 }
                             </style>
 
+                            <form action="{{ route('filtrar-fechas') }}" method="get" class="formFecha">
+                                <label for="fecha_inicio">Fecha de inicio:</label>
+                                <input type="date" name="fecha_inicio" id="fecha_inicio">
+
+                                <label for="fecha_fin">Fecha de fin:</label>
+                                <input type="date" name="fecha_fin" id="fecha_fin">
+
+                                <button type="submit">Filtrar</button>
+                            </form>
 
 
+                            <div class="border border-4 shadow p-3 mb-5 bg-body-tertiary rounded"
+                                style="width: 80%; margin: auto; height: 500px;">
+                                <canvas id="miGrafica" style="width: 100%; height: 100%;"></canvas>
+                            </div>
+
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    var ctx = document.getElementById('miGrafica').getContext('2d');
+                                    var datos = @json($datos);
+
+                                    var valoresPorFecha = {};
+
+                                    datos.forEach(function(dato) {
+                                        var fecha = dato.date;
+                                        var kwh = dato.kwh;
+
+                                        // Si la fecha ya existe en el objeto, suma el valor de KWH
+                                        if (valoresPorFecha[fecha]) {
+                                            valoresPorFecha[fecha] += kwh;
+                                        } else {
+                                            valoresPorFecha[fecha] = kwh;
+                                        }
+                                    });
+
+                                    // Obtener las fechas y los valores de KWH del objeto actualizado
+                                    var fechas = Object.keys(valoresPorFecha);
+                                    var valores = Object.values(valoresPorFecha);
+
+                                    var myChart = new Chart(ctx, {
+                                        type: 'line',
+                                        data: {
+                                            labels: fechas,
+                                            datasets: [{
+                                                label: 'Consumo',
+                                                data: valores,
+                                                borderColor: 'rgba(75, 192, 192, 1)',
+                                                backgroundColor: 'rgba(75, 192, 192, 0.2)', // Agrega un color de fondo para el área bajo la línea
+                                                borderWidth: 2,
+                                                pointRadius: 5, // Aumenta el tamaño de los puntos de datos
+                                                pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                                                pointBorderColor: 'rgba(75, 192, 192, 1)',
+                                            }]
+                                        },
+                                        options: {
+                                            scales: {
+                                                x: [{
+                                                    type: 'time',
+                                                    time: {
+                                                        unit: 'day'
+                                                    },
+                                                    ticks: {
+                                                        maxRotation: 0, // Rota las etiquetas del eje x para una mejor legibilidad
+                                                        autoSkip: true,
+                                                        maxTicksLimit: 10 // Limita el número de marcas del eje x para un mejor espaciado
+                                                    }
+                                                }],
+                                                y: [{
+                                                    ticks: {
+                                                        beginAtZero: true,
+                                                        callback: function(value) {
+                                                            return value
+                                                                .toLocaleString(); // Agrega comas para un mejor formato de etiqueta del eje y
+                                                        }
+                                                    }
+                                                }]
+                                            },
+                                            legend: {
+                                                display: true,
+                                                position: 'top', // Posiciona la leyenda en la parte superior para una mejor visibilidad
+                                            }
+                                        }
+                                    });
+                                });
+                            </script>
 
 
 
@@ -427,169 +617,111 @@
                             // Llamamos a la función para obtener los datos y crear la gráfica
                             obtenerDatos();
                         </script>
-
-
-
-                        <h1>Consumo entre fechas</h1>
-
-
-                        <!-- Agrega esto a tu vista -->
-                        <form action="{{ route('filtrar-fechas') }}" method="get">
-                            <label for="fecha_inicio">Fecha de inicio:</label>
-                            <input type="date" name="fecha_inicio" id="fecha_inicio">
-
-                            <label for="fecha_fin">Fecha de fin:</label>
-                            <input type="date" name="fecha_fin" id="fecha_fin">
-
-                            <button type="submit">Filtrar</button>
-                        </form>
-
-
-                        <canvas id="miGrafica"></canvas>
-
-                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
                         <script>
-                                            document.addEventListener("DOMContentLoaded", function() {
-                                                var ctx = document.getElementById('miGrafica').getContext('2d');
-                                                var datos = @json($datos);
-                                                // Convertir las fechas a formatos adecuados
-                                                var fechas = datos.map(function(dato) {
-                                                    return moment(dato.timestamp).format('YYYY-MM-DD'); // Puedes cambiar el formato según tus necesidades
-                                                });
-                                                // Determinar automáticamente la unidad de agrupación (semana o mes)
-                                                var agrupadoPor = determinarUnidadAgrupacion(fechas);
-                                                var agrupadoDatos = agruparDatos(datos, agrupadoPor);
-                                                var myChart = new Chart(ctx, {
-                                                    type: 'line',
-                                                    data: {
-                                                        labels: agrupadoDatos.labels,
-                                                        datasets: [{
-                                                            label: 'Consumo',
-                                                            data: agrupadoDatos.valores,
-                                                            borderColor: 'rgba(75, 192, 192, 1)',
-                                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                                            borderWidth: 2,
-                                                            pointRadius: 5,
-                                                            pointBackgroundColor: 'rgba(75, 192, 192, 1)',
-                                                            pointBorderColor: 'rgba(75, 192, 192, 1)',
-                                                        }]
-                                                    },
-                                                    options: {
-                                                        scales: {
-                                                            x: [{
-                                                                type: 'time',
-                                                                time: {
-                                                                    unit: agrupadoPor
-                                                                },
-                                                                ticks: {
-                                                                    maxRotation: 0,
-                                                                    autoSkip: true,
-                                                                    maxTicksLimit: 10
-                                                                }
-                                                            }],
-                                                            y: [{
-                                                                ticks: {
-                                                                    beginAtZero: true,
-                                                                    callback: function(value) {
-                                                                        return value.toLocaleString();
-                                                                    }
-                                                                }
-                                                            }]
-                                                        },
-                                                        legend: {
-                                                            display: true,
-                                                            position: 'top',
-                                                        }
-                                                    }
-                                                });
-                                                // Función para determinar automáticamente la unidad de agrupación
-                                                function determinarUnidadAgrupacion(fechas) {
-                                                    // Calcula la diferencia en días entre la primera y la última fecha
-                                                    var diffDias = moment(fechas[fechas.length - 1]).diff(moment(fechas[0]), 'days');
-                                                    // Decide la unidad de agrupación en base a la diferencia de días
-                                                    return diffDias > 30 ? 'month' : 'week';
+                            var ctx = document.getElementById('deviceUsageChart').getContext('2d');
+                            var deviceChart;
+                            let intervalId;
+
+                            // Función para generar datos de uso de dispositivos en segundos
+                            function generateDeviceUsageData(device) {
+                                var deviceData = [];
+                                for (var i = 0; i < 5; i++) {
+                                    deviceData.push((Math.random() * getMaxUsage(device)).toFixed(5));
+                                }
+                                return deviceData;
+                            }
+
+                            function getMaxUsage(device) {
+                                var maxUsage = {
+                                    xbox: 0.042,
+                                    Computadora: 0.072,
+                                    Refrigerador: 0.050
+                                };
+                                return maxUsage[device];
+                            }
+
+                            function updateChartData() {
+                                var selectedDevice = document.getElementById('deviceSelector').value;
+
+                                if (deviceChart) {
+                                    deviceChart.destroy();
+                                    clearInterval(intervalId);
+                                }
+
+                                deviceChart = new Chart(ctx, {
+                                    type: 'line',
+                                    data: {
+                                        labels: getTimestampLabels(),
+                                        datasets: [{
+                                            label: 'Uso de ' + selectedDevice + ' en kW/s',
+                                            data: generateDeviceUsageData(selectedDevice),
+                                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                            borderColor: 'rgba(54, 162, 235, 1)',
+                                            borderWidth: 2,
+                                            pointRadius: 5,
+                                            pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+                                            pointBorderColor: 'rgba(54, 162, 235, 1)',
+                                            pointHoverRadius: 7,
+                                            pointHoverBackgroundColor: 'rgba(54, 162, 235, 1)',
+                                            pointHoverBorderColor: 'rgba(54, 162, 235, 1)',
+                                            borderDash: [5, 5]
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true,
+                                                max: 0.088,
+                                                title: {
+                                                    display: true,
+                                                    text: 'KW'
                                                 }
-                                                // Función para agrupar datos por semanas o meses
-                                                function agruparDatos(datos, unidad) {
-                                                    var agrupado = {};
-                                                    for (var i = 0; i < datos.length; i++) {
-                                                        var fecha = moment(datos[i].timestamp).startOf(unidad).format('YYYY-MM-DD');
-                                                        if (!agrupado[fecha]) {
-                                                            agrupado[fecha] = {
-                                                                total: 0,
-                                                                count: 0
-                                                            };
-                                                        }
-                                                        agrupado[fecha].total += datos[i].kw_per_day;
-                                                        agrupado[fecha].count += 1;
-                                                    }
-                                                    var labels = Object.keys(agrupado);
-                                                    var valores = labels.map(function(label) {
-                                                        return agrupado[label].total / agrupado[label].count;
-                                                    });
-                                                    return {
-                                                        labels: labels,
-                                                        valores: valores
-                                                    };
+                                            },
+                                            x: {
+                                                title: {
+                                                    display: true,
+                                                    text: 'Hora'
                                                 }
-                                            });
-                                        </script>
-
-
-
-
-                        {{-- <label for="interval">Seleccionar Intervalo:</label>
-                        <select id="interval" onchange="updateChart()">
-                            <option value="daily">Diario</option>
-                            <option value="weekly">Semanal</option>
-                            <option value="monthly">Mensual</option>
-                            <option value="yearly">Anual</option>
-                        </select>
-
-                        <canvas id="myChart" width="400" height="400"></canvas>
-
-                        <script>
-                            var sensorReadings = @json($sensorReadings);
-
-                            var labels = [];
-                            var data = [];
-
-                            sensorReadings.forEach(function(reading) {
-                                labels.push(reading.name_aparato);
-                                data.push(reading.avg_kw_per_day);
-                            });
-
-                            var ctx = document.getElementById('myChart').getContext('2d');
-                            var myChart = new Chart(ctx, {
-                                type: 'bar',
-                                data: {
-                                    labels: labels,
-                                    datasets: [{
-                                        label: 'Consumo de energía promedio (kw_per_day)',
-                                        data: data,
-                                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                        borderColor: 'rgba(75, 192, 192, 1)',
-                                        borderWidth: 1
-                                    }]
-                                },
-                                options: {
-                                    scales: {
-                                        y: {
-                                            beginAtZero: true
+                                            },
+                                        },
+                                        elements: {
+                                            line: {
+                                                tension: 0.2
+                                            }
+                                        },
+                                        plugins: {
+                                            legend: {
+                                                display: true,
+                                                position: 'top'
+                                            }
                                         }
                                     }
-                                }
-                            });
+                                });
 
-                            function updateChart() {
-                                var interval = document.getElementById('interval').value;
-                                window.location.href = '/home/' + interval;
+                                intervalId = setInterval(function() {
+                                    var newData = generateDeviceUsageData(selectedDevice);
+                                    deviceChart.data.datasets[0].data.shift();
+                                    deviceChart.data.datasets[0].data.push(newData[4]);
+                                    deviceChart.data.labels = getTimestampLabels();
+                                    deviceChart.update();
+                                }, 1000);
                             }
-                        </script> --}}
 
+                            function getTimestampLabels() {
+                                var labels = [];
+                                var currentTime = new Date();
+                                for (var i = 0; i < 5; i++) {
+                                    var timestamp = new Date(currentTime.getTime() + i * 3000);
+                                    var hours = timestamp.getHours();
+                                    var minutes = timestamp.getMinutes();
+                                    var seconds = timestamp.getSeconds();
+                                    labels.push(`${hours}:${minutes}:${seconds}`);
+                                }
+                                return labels;
+                            }
 
-
+                            updateChartData();
+                        </script>
 
                     </div>
                 </div>

@@ -56,16 +56,31 @@ Route::post('/restore/execute', [RestoreController::class, 'execute'])->name('ex
 
 
 
-Route::get('/chart', [ChartController::class, 'getData'])->name('home');
+Route::get('/chart', [ChartController::class, 'getData']);
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('/home', [ChartController::class, 'filtrarFechas'])->name('filtrar-fechas');
+// Route::get('/home', [ChartController::class, 'filtrarFechas']);
+
+Route::middleware(['auth'])->group(function () {
+    // Route::get('/home', [ChartController::class, 'filtrarFechas']);
+    Route::get('/home', [ChartController::class, 'filtrarFechas'])->name('filtrar-fechas');
+
+    
+});
+// Route::post('/intervaloTemporal', [ChartController::class, 'intervaloTemporal']);
+
+// Route::get('/home', [ChartController::class, 'index']);
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/home', [ChartController::class, 'index']);
+// });
+
 
 // Route::get('/home', [ChartdateController::class, 'index'])->name('chartdate');
+// Route::get('/home', [ChartdateController::class, 'index']);
 
 // $user = auth()->user();
 // $isAdmin = $user->hasRole('Administrador');
