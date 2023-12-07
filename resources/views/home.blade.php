@@ -149,145 +149,211 @@
                                 }
                             </style>
 
-                            <div>
-                                <hr> <!-- Additional line -->
-                                <h1 class="cocina">Consumo de los dispositivos</h1>
-                                <label for="nombre">Seleccionar Nombre:</label>
-                                <select id="nombre" onchange="updateChartt()">
-                                    <?php
-                                    $uniqueNames = [];
-                                    ?>
-                                    @foreach ($dataRead as $data)
-                                        <?php
-                                    // Verificar si el name_aparato ya se ha agregado al conjunto
-                                    if (!in_array($data->name_aparato, $uniqueNames)) {
-                                        // Si no, agregarlo al conjunto y mostrar la opción en el select
-                                        $uniqueNames[] = $data->name_aparato;
-                                    ?>
-                                        <option value="{{ $data->name_aparato }}">{{ $data->name_aparato }}</option>
-                                        <?php
-                                    }
-                                    ?>
-                                    @endforeach
-                                </select>
-                            </div>
+                                    <div>
+                                        <hr> <!-- Additional line -->
+                                        <h1 class="cocina">Consumo de los dispositivos</h1>
+                                        <label for="nombre">Seleccionar Nombre:</label>
+                                        <select id="nombre" onchange="updateChartt()">
+                                            <?php
+                                            $uniqueNames = [];
+                                            ?>
+                                            @foreach ($dataRead as $data)
+                                                <?php
+                                                // Verificar si el name_aparato ya se ha agregado al conjunto
+                                                if (!in_array($data->name_aparato, $uniqueNames)) {
+                                                    // Si no, agregarlo al conjunto y mostrar la opción en el select
+                                                    $uniqueNames[] = $data->name_aparato;
+                                                    ?>
+                                                    <option value="{{ $data->name_aparato }}">{{ $data->name_aparato }}</option>
+                                                <?php
+                                                }
+                                                ?>
+                                            @endforeach
+                                        </select>
+                                    </div>
 
+                                    <canvas id="lecturaSensorChartt" style="width: 80%; margin: auto; height: 500px;"></canvas>
 
-                            <canvas id="lecturaSensorChartt" width="400" height="200"></canvas>
+                                    <script>
+                                        var ctxx = document.getElementById('lecturaSensorChartt').getContext('2d');
+                                        var lecturaSensor = @json($dataRead);
 
-                            <script>
-                                var ctxx = document.getElementById('lecturaSensorChartt').getContext('2d');
-                                var lecturaSensor = @json($dataRead);
+                                        var myChartt = createChart(); // Crear la gráfica inicialmente
 
-                                var myChartt; // Declarar la variable fuera de la función
-
-                                // Función para actualizar la gráfica según el nombre seleccionado
-                                function updateChartt() {
-                                    var selectedNombre = document.getElementById('nombre').value;
-                                    var lecturasFiltradas = lecturaSensor.filter(function(dato) {
-                                        return dato.name_aparato == selectedNombre;
-                                    });
-
-                                    //var ultimosRegistros = lecturasFiltradas.slice(-7);
-
-                                    var date = lecturasFiltradas.map(function(dato) {
-                                        return dato.date.substring(0, 10);
-                                    });
-
-                                    var valores = lecturasFiltradas.map(function(dato) {
-                                        return dato.total_kw;
-                                    });
-
-                                    var nameUser = lecturasFiltradas.map(function(dato) {
-                                        return dato.name;
-                                    });
-
-                                    // Limpiar la gráfica anterior
-                                    if (myChartt) {
-                                        myChartt.destroy();
-                                    }
-
-                                    // Crear una nueva gráfica con datos actualizados
-                                    myChartt = new Chart(ctxx, {
-                                        type: 'bar',
-                                        data: {
-                                            labels: date,
-                                            datasets: [{
-                                                label: 'Lectura del Sensor (kWh)',
-                                                data: valores,
-                                                backgroundColor: 'rgba(75, 192, 192, 0.5)', // Color de fondo
-                                                borderColor: 'rgba(75, 192, 192, 1)',
-                                                borderWidth: 2,
-                                                hoverBackgroundColor: 'rgba(75, 192, 192, 0.7)', // Color de fondo al pasar el ratón
-                                                hoverBorderColor: 'rgba(75, 192, 192, 1)',
-                                                fill: false,
-                                            }]
-                                        },
-                                        options: {
-                                            scales: {
-                                                x: {
-                                                    title: {
-                                                        display: true,
-                                                        text: 'Fecha' // Título del eje y
-                                                    },
-                                                    grid: {
-                                                        display: false // Ocultar líneas de la cuadrícula en el eje x
-                                                    }
+                                        function createChart() {
+                                            return new Chart(ctxx, {
+                                                type: 'bar',
+                                                data: {
+                                                    labels: [],
+                                                    datasets: [{
+                                                        label: 'Lectura del Sensor (kWh)',
+                                                        data: [],
+                                                        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                                                        borderColor: 'rgba(75, 192, 192, 1)',
+                                                        borderWidth: 2,
+                                                        hoverBackgroundColor: 'rgba(75, 192, 192, 0.7)',
+                                                        hoverBorderColor: 'rgba(75, 192, 192, 1)',
+                                                        fill: false,
+                                                    }]
                                                 },
-                                                y: {
-                                                    beginAtZero: true,
-                                                    title: {
-                                                        display: true,
-                                                        text: 'Consumo de Energía (kWh)' // Título del eje y
+                                                options: {
+                                                    scales: {
+                                                        x: {
+                                                            title: {
+                                                                display: true,
+                                                                text: 'Fecha'
+                                                            },
+                                                            grid: {
+                                                                display: false
+                                                            }
+                                                        },
+                                                        y: {
+                                                            beginAtZero: true,
+                                                            title: {
+                                                                display: true,
+                                                                text: 'Consumo de Energía (kWh)'
+                                                            },
+                                                            grid: {
+                                                                color: 'rgba(0, 0, 0, 0.1)',
+                                                            }
+                                                        }
                                                     },
-                                                    grid: {
-                                                        color: 'rgba(0, 0, 0, 0.1)', // Color de las líneas de la cuadrícula en el eje y
+                                                    plugins: {
+                                                        legend: {
+                                                            display: true,
+                                                            position: 'top'
+                                                        }
                                                     }
                                                 }
-                                            },
-                                            plugins: {
-                                                legend: {
-                                                    display: true,
-                                                    position: 'top' // Posición de la leyenda
+                                            });
+                                        }
+
+                                        function updateChartt() {
+                                            var selectedNombre = document.getElementById('nombre').value;
+                                            var lecturasFiltradas = lecturaSensor.filter(function (dato) {
+                                                return dato.name_aparato == selectedNombre;
+                                            });
+
+                                            var date = lecturasFiltradas.map(function (dato) {
+                                                return dato.date.substring(0, 10);
+                                            });
+
+                                            var valores = lecturasFiltradas.map(function (dato) {
+                                                return dato.total_kw;
+                                            });
+
+                                            // Actualizar datos de la gráfica existente
+                                            myChartt.data.labels = date;
+                                            myChartt.data.datasets[0].data = valores;
+
+                                            // Actualizar la gráfica
+                                            myChartt.update();
+                                        }
+
+                                        // Llamar a la función inicialmente para cargar la gráfica con el primer nombre
+                                        updateChartt();
+                                    </script>
+
+
+         
+                                    <h1>Consumo predectivo (1 mes)</h1>
+                                    <div class="border border-4 shadow p-3 mb-5 bg-body-tertiary rounded" style="width: 80%; margin: auto; height: 500px;">
+                                        <canvas id="graficoConsumo" style="width: 100%; margin: auto; height: 500px;"></canvas>
+                                    </div>
+                                    
+
+                                    
+                                    <script>
+                                            document.addEventListener("DOMContentLoaded", function() {
+                                            var datosConsumo = @json($datosConsumo);
+                                            var datosConsumo24 = @json($datosConsumo24);
+
+                                            console.log(datosConsumo)
+                                            // Agrega más datos según tu estructura de base de datos
+                                            var fechas = datosConsumo.map(function(dato) {
+                                                        return moment(dato.fecha).format('MM-DD'); // Puedes cambiar el formato según tus necesidades
+                                            });
+                                            console.log(fechas)
+                                            var cocina = datosConsumo.map(function(dato) {
+                                                        return dato.cocina // Puedes cambiar el formato según tus necesidades
+                                            });
+                                            console.log(cocina)
+  
+                                            var sala = datosConsumo24.map(function(dato) {
+                                                        return dato.cocina // Puedes cambiar el formato según tus necesidades
+                                                });
+
+                                            
+                                            // Agrega más datos según tu estructura de base de datos
+                                            // var fechas24 = datosConsumo24.map(function(dato) {
+                                            //             return moment(dato.fecha).format('YYYY-MM-DD'); // Puedes cambiar el formato según tus necesidades
+                                            // });
+                                   
+                                            // var cocina24 = datosConsumo24.map(function(dato) {
+                                            //             return dato.cocina // Puedes cambiar el formato según tus necesidades
+                                            // });
+                                            // console.log(cocina24)
+                                      
+                                            
+
+
+                                     
+                                            console.log(sala)
+                                            // Configuración del gráfico
+                                            var ctxConsumo = document.getElementById('graficoConsumo').getContext('2d');
+                                            var chartConsumo = new Chart(ctxConsumo, {
+                                                type: 'line',
+                                                data: {
+                                                    labels: fechas,
+                                                    datasets: [
+                                                        {
+                                                            label: 'Cocina 2023',
+                                                            data: cocina,
+                                                            borderColor: 'rgba(75, 192, 192, 1)',
+                                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                                            borderWidth: 2,
+                                                            pointRadius: 5,
+                                                            pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                                                            pointBorderColor: 'rgba(75, 192, 192, 1)',
+                                                        },
+                                                        {
+                                                            label: 'Cocina 2024',
+                                                            data: sala,
+                                                            borderColor: 'rgba(3, 252, 28, 1)',
+                                                            borderWidth: 1,
+                                                            fill: false,
+                                                            backgroundColor: 'rgba(3, 252, 28, 1)',
+                                                            borderWidth: 2,
+                                                            pointRadius: 5,
+                                                            pointBackgroundColor: 'rgba(3, 252, 28, 1)',
+                                                            pointBorderColor: 'rgba(3, 252, 28, 1)',
+                                                        },
+                                                        // Agrega más datasets según tu estructura de base de datos
+                                                    ]
+                                                },
+                                                options: {
+                                                    scales: {
+                                                        x: {
+                                                            title: {
+                                                                    display: true,
+                                                                    text: 'Fechas' // Label for the X axis
+                                                                }
+                                                        },
+                                                        y: {
+                                                            beginAtZero: true,
+                                                            title: {
+                                                                    display: true,
+                                                                    text: 'KW/Dia' // Label for the X axis
+                                                                }
+                                                        }
+                                                    }
                                                 }
                                             }
-                                        }
-                                    });
-
-                                }
-
-                                // Llamar a la función inicialmente para cargar la gráfica con el primer nombre
-                                updateChartt();
-                            </script>
+                                        )});
+                                    </script>
 
 
-
-                            <hr> <!-- Additional line -->
-                            <h1 class="cocina">Consumo de los dispositivos</h1>
-
-                            <div class="border border-4 shadow p-3 mb-5 bg-body-tertiary rounded"
-                                style=" width: 80%; margin: auto;height: 500px;">
-                                <table>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Fecha y Hora</th>
-                                        <th>Cocina</th>
-                                        <!-- Agrega otras columnas según sea necesario -->
-                                    </tr>
-                                    @foreach ($consumptionData as $data)
-                                        <tr>
-                                            <td>{{ $data->ID }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($data->DATE_TIME)->toDateString() }}</td>
-                                            <td>{{ $data->Cocina }}</td>
-                                            <!-- Agrega otras columnas según sea necesario -->
-                                        </tr>
-                                    @endforeach
-                                </table>
-                            </div>
-
-
-
-
+            
                             <h1 style="margin-left: 3%;">Consumo entre fechas</h1>
 
                             <style>
@@ -345,12 +411,14 @@
                                 document.addEventListener("DOMContentLoaded", function() {
                                     var ctx = document.getElementById('miGrafica').getContext('2d');
                                     var datos = @json($datos);
+                                    console.log(datos);
+
 
                                     var valoresPorFecha = {};
 
                                     datos.forEach(function(dato) {
-                                        var fecha = dato.date;
-                                        var kwh = dato.kwh;
+                                        var fecha = dato.date.substring(0, 10);
+                                        var kwh = dato.kw_per_day;
 
                                         // Si la fecha ya existe en el objeto, suma el valor de KWH
                                         if (valoresPorFecha[fecha]) {
@@ -372,39 +440,31 @@
                                                 label: 'Consumo',
                                                 data: valores,
                                                 borderColor: 'rgba(75, 192, 192, 1)',
-                                                backgroundColor: 'rgba(75, 192, 192, 0.2)', // Agrega un color de fondo para el área bajo la línea
+                                                backgroundColor: 'rgba(75, 192, 192, 0.2)', 
                                                 borderWidth: 2,
-                                                pointRadius: 5, // Aumenta el tamaño de los puntos de datos
+                                                pointRadius: 5, 
                                                 pointBackgroundColor: 'rgba(75, 192, 192, 1)',
                                                 pointBorderColor: 'rgba(75, 192, 192, 1)',
                                             }]
                                         },
                                         options: {
                                             scales: {
-                                                x: [{
-                                                    type: 'time',
-                                                    time: {
-                                                        unit: 'day'
+                                                x: {
+                                                    title: {
+                                                        display: true,
+                                                        text: 'Fecha'
+                                                    }
+                                                },
+                                                y: {
+                                                    title: {
+                                                        display: true,
+                                                        text: 'KW/D' 
                                                     },
-                                                    ticks: {
-                                                        maxRotation: 0, // Rota las etiquetas del eje x para una mejor legibilidad
-                                                        autoSkip: true,
-                                                        maxTicksLimit: 10 // Limita el número de marcas del eje x para un mejor espaciado
-                                                    }
-                                                }],
-                                                y: [{
-                                                    ticks: {
-                                                        beginAtZero: true,
-                                                        callback: function(value) {
-                                                            return value
-                                                                .toLocaleString(); // Agrega comas para un mejor formato de etiqueta del eje y
-                                                        }
-                                                    }
-                                                }]
+                                                }
                                             },
                                             legend: {
                                                 display: true,
-                                                position: 'top', // Posiciona la leyenda en la parte superior para una mejor visibilidad
+                                                position: 'top', 
                                             }
                                         }
                                     });
