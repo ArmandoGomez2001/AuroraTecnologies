@@ -24,6 +24,7 @@
         "jquery.nicescroll": "^3.7.6",
         "jsrender": "^1.0.5",
         "laravel-mix": "^6.0.28",
+        "luxon": "^3.4.4",
         "popper.js": "^1.12",
         "sass": "^1.15.2",
         "sass-loader": "^11.0.0",

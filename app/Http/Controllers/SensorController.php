@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\QueryBuilder;
 
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class SensorController extends Controller
     //     // $sensors = $user->User::sensors()->paginate(5);
     //     $user = auth()->user();
     //     $sensors = $user->sensors()->paginate(5);
-    
+
     //     return view('sensors.index', compact('sensors'));
 
 
@@ -59,14 +60,14 @@ class SensorController extends Controller
                 $user = auth()->user();
                 $sensors = $user->sensors()->paginate(5);
             }
-    
+
             return view('sensors.index', compact('sensors'));
         } else {
             // Manejar el caso en que el usuario no está autenticado
             return redirect()->route('login');
         }
     }
-    
+
 
 
     //     public function index()
@@ -90,9 +91,10 @@ class SensorController extends Controller
      */
     public function create()
     {
-        //
-        return view('sensors.crear');
+        $usuarios = User::pluck('email', 'id')->all();
+        return view('sensors.crear', compact('usuarios'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -100,17 +102,27 @@ class SensorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
+
     // public function store(Request $request)
     // {
-    //     $user_id = auth()->user()->id;
+    //     // $user_id = auth()->user()->id;
+    //     $usuarios =
+    //         request()->validate([
+    //             'code_sensor' => 'required',
+    //             'name_aparato' => 'required',
+    //             'ubicacion' => 'required',
+    //         ]);
 
-    //     request()->validate([
-    //         'nombre' => 'required',
-    //         'ubicacion' => 'required',
-    //         'user_id' => $user_id,
-    //     ]);
+    //     // Add the 'usuario' field to the request data
+    //     $requestData = $request->all();
+    //     $requestData['usuario'] = $usuarios;
 
-    //     Sensor::create($request->all());
+
+    //     //$user->assignUser($request->input('roles'));
+
+    //     Sensor::create($requestData);
 
     //     return redirect()->route('sensors.index');
     // }
@@ -118,18 +130,14 @@ class SensorController extends Controller
 
     public function store(Request $request)
     {
-        $user_id = auth()->user()->id;
-
         request()->validate([
-            'nombre' => 'required',
+            'code_sensor' => 'required',
+            'name_aparato' => 'required',
             'ubicacion' => 'required',
+            'usuario' => 'required', // Asegúrate de que el campo user_id sea requerido
         ]);
 
-        // Add the 'usuario' field to the request data
-        $requestData = $request->all();
-        $requestData['usuario'] = $user_id;
-
-        Sensor::create($requestData);
+        Sensor::create($request->all());
 
         return redirect()->route('sensors.index');
     }
@@ -154,8 +162,10 @@ class SensorController extends Controller
      */
     public function edit(Sensor $sensor)
     {
-        return view('sensors.editar', compact('sensor'));
+        $usuarios = User::pluck('email', 'id')->all();
+        return view('sensors.editar', compact('sensor', 'usuarios'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -167,8 +177,10 @@ class SensorController extends Controller
     public function update(Request $request, Sensor $sensor)
     {
         request()->validate([
-            'nombre' => 'required',
+            'code_sensor' => 'required',
+            'name_aparato' => 'required',
             'ubicacion' => 'required',
+            'usuario' => 'required', // Asegúrate de que el campo user_id sea requerido
         ]);
 
         $sensor->update($request->all());

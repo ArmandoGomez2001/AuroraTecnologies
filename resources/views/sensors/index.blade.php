@@ -27,7 +27,7 @@
                             @foreach ($sensors as $sensor)
                             <tr>
                                 <td style="display: none;">{{ $sensor->id }}</td>                                
-                                <td>{{ $sensor->nombre }}</td>
+                                <td>{{ $sensor->name_aparato }}</td>
                                 <td>{{ $sensor->ubicacion }}</td>
                                 {{-- <td>
                                     <form action="{{ route('sensors.destroy',$sensor->id) }}" method="POST">                                        
