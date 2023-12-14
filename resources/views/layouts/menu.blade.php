@@ -15,6 +15,8 @@
         <i class=" fas fa-building"></i><span>Dashboard</span>
     </a>
     <a class="nav-link" href="/sensors">
-        <i class=" fas fa-blog"></i><span>Sensores</span>
+        <i class=" fas fa-plug"></i><span>Sensores</span>
     </a>
 </li>
+
+

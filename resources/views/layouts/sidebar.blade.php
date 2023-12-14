@@ -1,4 +1,4 @@
-<aside id="sidebar-wrapper">
+<aside id="sidebar-wrapper" class="position-fixed">
     <div class="sidebar-brand">
         <img class="navbar-brand-full app-header-logo" src="{{ asset('img/logo.svg') }}" width="65"
              alt="Infyom Logo">
@@ -6,7 +6,7 @@
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
         <a href="{{ url('/') }}" class="small-sidebar-text">
-            <img class="navbar-brand-full" src="{{ asset('img/logo.png') }}" width="45px" alt=""/>
+            <img class="navbar-brand-full" src="{{ asset('img/logo.SVG') }}" width="45px" alt=""/>
         </a>
     </div>
     <ul class="sidebar-menu">
