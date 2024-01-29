@@ -357,7 +357,7 @@
         <canvas id="graficoConsumo"></canvas>
     </div>
 
-    <script>
+    {{-- <script>
         document.addEventListener("DOMContentLoaded", function() {
             var datosConsumo = @json($datosConsumo);
             var datosConsumo24 = @json($datosConsumo24);
@@ -445,7 +445,7 @@
             })
         });
 
-    </script>
+    </script> --}}
 
     <h1 style="margin-left: 3%;">Consumo entre fechas</h1>
 

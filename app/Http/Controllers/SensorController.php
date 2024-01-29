@@ -7,6 +7,7 @@ use App\Http\Controllers\QueryBuilder;
 use Illuminate\Http\Request;
 use App\Models\Sensor;
 use App\Models\User;
+use App\Models\Ubicaciones;
 
 
 class SensorController extends Controller
@@ -24,64 +25,30 @@ class SensorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function index()
-    // {
-    //     //
-    //     $sensors = Sensor::paginate(5);
-    //     return view('sensors.index', compact('sensors'));
-    // }
-
-    // public function index()
-    // {
-    //     // $user = auth()->user();
-    //     // $sensors = $user->User::sensors()->paginate(5);
-    //     $user = auth()->user();
-    //     $sensors = $user->sensors()->paginate(5);
-
-    //     return view('sensors.index', compact('sensors'));
-
-
-    //     // return view('sensors.index', [
-    //     //     'sensors' => (auth()->user())->sensors()->paginate(5)
-    //     // ]);
-    // }
 
 
     public function index()
     {
         // Verificar si el usuario está autenticado
         if (auth()->check()) {
+            $ubicacion = Ubicaciones::all(); 
             // Verificar si el usuario tiene el rol 'Administrador'
             if (auth()->user()->hasRole('Administrador')) {
                 // Si es administrador, obtener todos los sensores
                 $sensors = Sensor::paginate(5);
+                
             } else {
                 // Si no es administrador, obtener los sensores del usuario actual
                 $user = auth()->user();
                 $sensors = $user->sensors()->paginate(5);
             }
 
-            return view('sensors.index', compact('sensors'));
+            return view('sensors.index', compact('sensors', 'ubicacion'));
         } else {
             // Manejar el caso en que el usuario no está autenticado
             return redirect()->route('login');
         }
     }
-
-
-
-    //     public function index()
-    // {
-    //     if (auth()->$user()->hasRole('Administrador')) {
-    //         If the user has the 'Administrador' role, show all sensors
-    //         $sensors = Sensor::paginate(5);
-    //     } else {
-    //         If the user doesn't have 'Administrador' role, show their own sensors
-    //         $sensors = auth()->user()->sensors()->paginate(5);
-    //     }
-
-    //     return view('sensors.index', compact('sensors'));
-    // }
 
 
     /**
@@ -92,7 +59,8 @@ class SensorController extends Controller
     public function create()
     {
         $usuarios = User::pluck('email', 'id')->all();
-        return view('sensors.crear', compact('usuarios'));
+        $ubicaciones = Ubicaciones::all();
+        return view('sensors.crear', compact('usuarios', 'ubicaciones'));
     }
 
 
@@ -103,41 +71,22 @@ class SensorController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
-
-    // public function store(Request $request)
-    // {
-    //     // $user_id = auth()->user()->id;
-    //     $usuarios =
-    //         request()->validate([
-    //             'code_sensor' => 'required',
-    //             'name_aparato' => 'required',
-    //             'ubicacion' => 'required',
-    //         ]);
-
-    //     // Add the 'usuario' field to the request data
-    //     $requestData = $request->all();
-    //     $requestData['usuario'] = $usuarios;
-
-
-    //     //$user->assignUser($request->input('roles'));
-
-    //     Sensor::create($requestData);
-
-    //     return redirect()->route('sensors.index');
-    // }
-
-
     public function store(Request $request)
     {
         request()->validate([
             'code_sensor' => 'required',
             'name_aparato' => 'required',
-            'ubicacion' => 'required',
-            'usuario' => 'required', // Asegúrate de que el campo user_id sea requerido
-        ]);
+            'usuario' => 'required',
+         ]);
 
-        Sensor::create($request->all());
+        $ubicacion = intval($request->input('ubicaciones'));
+
+        Sensor::create([
+            'code_sensor' => $request->input('code_sensor'),
+            'name_aparato' => $request->input('name_aparato'),
+            'usuario' => $request->input('usuario'),
+            'ubicacion' => $ubicacion
+        ]);
 
         return redirect()->route('sensors.index');
     }
@@ -163,7 +112,9 @@ class SensorController extends Controller
     public function edit(Sensor $sensor)
     {
         $usuarios = User::pluck('email', 'id')->all();
-        return view('sensors.editar', compact('sensor', 'usuarios'));
+        $ubicaciones = Ubicaciones::all();
+
+        return view('sensors.editar', compact('sensor', 'usuarios', 'ubicaciones'));
     }
 
 
@@ -179,11 +130,15 @@ class SensorController extends Controller
         request()->validate([
             'code_sensor' => 'required',
             'name_aparato' => 'required',
-            'ubicacion' => 'required',
             'usuario' => 'required', // Asegúrate de que el campo user_id sea requerido
         ]);
-
-        $sensor->update($request->all());
+        $ubicacion = intval($request->input('ubicaciones'));
+        $sensor->update([
+            'code_sensor' => $request->input('code_sensor'),
+            'name_aparato' => $request->input('name_aparato'),
+            'usuario' => $request->input('usuario'),
+            'ubicacion' => $ubicacion
+        ]);
 
         return redirect()->route('sensors.index');
     }
@@ -200,4 +155,6 @@ class SensorController extends Controller
 
         return redirect()->route('sensors.index');
     }
+
+
 }

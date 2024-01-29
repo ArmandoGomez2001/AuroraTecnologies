@@ -46,9 +46,13 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                     
-                                <div class="form-floating">
-                                <label for="ubicacion">Ubicacion</label>
-                                <input type="text" name="ubicacion" class="form-control"> <br>
+                                <div class="form-group">
+                                    <label for="ubicaciones">Ubicaciones</label>
+                                    <select name="ubicaciones" class="form-control">
+                                        @foreach($ubicaciones as $ubicacion)
+                                            <option value="{{ $ubicacion->id }}">{{ $ubicacion->nombre }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             
                             <button type="submit" class="btn btn-primary">Guardar</button>                            

@@ -10,55 +10,40 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                
-            
                         @can('crear-sensor')
                         <a class="btn btn-warning" href="{{ route('sensors.create') }}">Nuevo</a>
                         @endcan
-            
                         <table class="table table-striped mt-2">
                                 <thead style="background-color:#6777ef">                                     
                                     <th style="display: none;">ID</th>
                                     <th style="color:#fff;">Nombre</th>
                                     <th style="color:#fff;">Ubicacion</th>                                    
-                                    <th style="color:#fff;">Acciones</th>                                                                   
+                                    <th style="color:#fff;">Acciones</th>                                                                                         
                               </thead>
                               <tbody>
                             @foreach ($sensors as $sensor)
-                            <tr>
-                                <td style="display: none;">{{ $sensor->id }}</td>                                
-                                <td>{{ $sensor->name_aparato }}</td>
-                                <td>{{ $sensor->ubicacion }}</td>
-                                {{-- <td>
-                                    <form action="{{ route('sensors.destroy',$sensor->id) }}" method="POST">                                        
-                                        @can('editar-sensor')
-                                        <a class="btn btn-info" href="{{ route('sensors.edit',$sensor->id) }}">Editar</a>
-                                        @endcan
-
-                                        @csrf
-                                        @method('DELETE')
-                                        @can('borrar-sensor')
-                                        <button type="submit" class="btn btn-danger">Borrar</button>
-                                        @endcan
-
-                                        
-                                    </form>
-                                </td> --}}
-
-                                <td>                                
-                                    @can('editar-sensor')
-                                        <a class="btn btn-primary" href="{{ route('sensors.edit', $sensor->id) }}">Editar</a>
-                                    @endcan
-                                    
-                                    @can('borrar-sensor')
-                                    <button class="btn btn-danger delete-button" data-id="{{ $sensor->id }}">Borrar</button>
-                                    @endcan
-                                </td>
-                            </tr>
-                            @endforeach
+                              <tr>
+                                  <td style="display: none;">{{ $sensor->id }}</td>                                
+                                  <td>{{ $sensor->name_aparato }}</td>
+                                  {{-- <td>{{ $sensor->ubicacion }}</td> --}}
+                                  @foreach($ubicacion as $ubicaciones)
+                                    @if($sensor->ubicacion == $ubicaciones->id)
+                                      <td>{{ $ubicaciones->nombre }}</td>
+                                    @endif
+                                  @endforeach
+                                  <td>                                
+                                      @can('editar-sensor')
+                                          <a class="btn btn-primary" href="{{ route('sensors.edit', $sensor->id) }}">Editar</a>
+                                      @endcan
+                                      
+                                      @can('borrar-sensor')
+                                      <button class="btn btn-danger delete-button" data-id="{{ $sensor->id }}">Borrar</button>
+                                      @endcan
+                                  </td>
+                              </tr>
+                            @endforeach                           
                             </tbody>
                         </table>
-
                         <!-- Ubicamos la paginacion a la derecha -->
                         <div class="pagination justify-content-end">
                             {!! $sensors->links() !!}

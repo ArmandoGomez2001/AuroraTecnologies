@@ -38,7 +38,7 @@ class ChartController extends Controller
             ->orderBy('date')
             ->get();
 
-        $consumptionData = DB::table('consumo_ubicacion')->get();
+        // $consumptionData = DB::table('consumo_ubicacion')->get();
         $userId = $userId = Auth::id();
         $year = Carbon::now()->year;
         $tarifaResults  = DB::select('CALL TarifaCiclo(?)', array($userId));
@@ -87,29 +87,29 @@ class ChartController extends Controller
         // $lecturaRead = DB::table('reading')->get();
         // $name_aparato = SensorReading::select('nombre')->distinct()->pluck('nombre');
 
-        $datosConsumo = DB::table('consumo_ubicacion')
-        ->whereBetween('fecha', ['2023-1-1', '2023-12-31'])
-        ->orderBy('fecha')
-        ->get();
+        // $datosConsumo = DB::table('consumo_ubicacion')
+        // ->whereBetween('fecha', ['2023-1-1', '2023-12-31'])
+        // ->orderBy('fecha')
+        // ->get();
 
 
-        $datosConsumo24 = DB::table('consumo_ubicacion')
-        ->whereBetween('fecha', ['2024-1-1', '2024-12-31'])
-        ->orderBy('fecha')
-        ->get();
+        // $datosConsumo24 = DB::table('consumo_ubicacion')
+        // ->whereBetween('fecha', ['2024-1-1', '2024-12-31'])
+        // ->orderBy('fecha')
+        // ->get();
 
 
         // Mover esta línea fuera del bloque anterior
         return view('home', [
             'nombres' => $nombres,
             'datos' => $datos,
-            'consumptionData' => $consumptionData,
+            //'consumptionData' => $consumptionData,
             'userConsumption' => $userConsumption,
             'lecturaSensor' => $lecturaSensor,
             'bill' => $bill,
             'dataRead' => $dataRead,
-            'datosConsumo' => $datosConsumo,
-            'datosConsumo24' => $datosConsumo24
+            // 'datosConsumo' => $datosConsumo,
+            // 'datosConsumo24' => $datosConsumo24
 
 
 
